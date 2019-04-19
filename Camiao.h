@@ -1,8 +1,11 @@
 class Camiao
 {
 private:
-    
+    double capacidade;
+    int id;
 public:
-    Camiao();
+    static int num;
+
+    Camiao(double capacidade);
     ~Camiao();
 };

@@ -110,6 +110,12 @@
 		<Unit filename="/Users/andremori/FEUP/2º aninho/cal-proj/Local.h">
 			<Option target="cal_proj"/>
 		</Unit>
+		<Unit filename="/Users/andremori/FEUP/2º aninho/cal-proj/Produto.cpp">
+			<Option target="cal_proj"/>
+		</Unit>
+		<Unit filename="/Users/andremori/FEUP/2º aninho/cal-proj/Produto.h">
+			<Option target="cal_proj"/>
+		</Unit>
 		<Unit filename="/Users/andremori/FEUP/2º aninho/cal-proj/main.cpp">
 			<Option target="cal_proj"/>
 		</Unit>

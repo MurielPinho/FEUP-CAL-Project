@@ -5,18 +5,20 @@
 #include "Garagem.h"
 #include "Deposito.h"
 #include "Local.h"
+#include "Produto.h"
+#include <list>
 
 using namespace std;
 
 class Empresa
 {
 private:
-    string nome; 
-
+    string nome;
     vector<Camiao> frota;
     Garagem *garagem;
     Deposito *deposito;
-    Local *local;
+
+    list<Produto> produtos;
 public:
     const string &getNome() const;
 
@@ -26,10 +28,11 @@ public:
 
     Deposito *getDeposito() const;
 
-    Local *getLocal() const;
+    void addCamiao(const Camiao &camiao);
 
-public:
-    Empresa();
+    void addProduto(const Produto &produto);
+
+    Empresa(string nome, Camiao camiao, Garagem *garagem, Deposito *deposito);
     ~Empresa(); 
 };
 

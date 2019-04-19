@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/cal_proj.dir/Deposito.cpp.o"
   "CMakeFiles/cal_proj.dir/Camiao.cpp.o"
   "CMakeFiles/cal_proj.dir/Local.cpp.o"
+  "CMakeFiles/cal_proj.dir/Produto.cpp.o"
   "cal_proj.pdb"
   "cal_proj"
 )

@@ -24,6 +24,20 @@ Deposito *Empresa::getDeposito() const {
     return deposito;
 }
 
-Local *Empresa::getLocal() const {
-    return local;
+void Empresa::addCamiao(const Camiao &camiao) {
+    frota.push_back(camiao);
+
 }
+
+Empresa::Empresa(string nome, Camiao camiao, Garagem *garagem, Deposito *deposito) {
+    this->nome = nome;
+    frota.push_back(camiao);
+    this->garagem = garagem;
+    this->deposito = deposito;
+}
+
+void Empresa::addProduto(const Produto &produto) {
+    produtos.push_back(produto);
+    produtos.sort();
+}
+

@@ -3,4 +3,4 @@ project(cal_proj)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(cal_proj main.cpp Empresa.cpp Garagem.cpp Deposito.cpp Camiao.cpp Local.cpp)
+add_executable(cal_proj main.cpp Empresa.cpp Garagem.cpp Deposito.cpp Camiao.cpp Local.cpp Produto.cpp Produto.h)
