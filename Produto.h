@@ -5,6 +5,8 @@ class Produto
 private:
     string nome;
     long fatura;
+    double peso, preco;
+    Local *destino;
 public:
     const string &getNome() const;
 
@@ -24,10 +26,8 @@ public:
 
     bool operator>=(const Produto &rhs) const;
 
-private:
-    double peso, preco;
-    Local *destino;
-public:
+    void getInfo();
+
     Produto(string nome, long fatura, double peso, double preco, Local *destino);
 
 };

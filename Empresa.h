@@ -1,6 +1,4 @@
 #include "Camiao.h"
-#include "Garagem.h"
-#include "Deposito.h"
 #include "Produto.h"
 #include <list>
 #include <vector>
@@ -13,25 +11,26 @@ class Empresa
 {
 private:
     string nome;
-    vector<Camiao> frota;
-    Garagem *garagem;
-    Deposito *deposito;
+    vector<Camiao*> frota;
+    Local *garagem;
+    Local *deposito;
 
-    list<Produto> produtos;
+    list<Produto*> produtos;
 public:
+    Empresa(string nome, Camiao *camiao, Local *garagem, Local *deposito);
+
     const string &getNome() const;
 
-    const vector<Camiao> &getFrota() const;
+    const vector<Camiao*> &getFrota() const;
 
-    Garagem *getGaragem() const;
+    Local *getGaragem() const;
 
-    Deposito *getDeposito() const;
+    Local *getDeposito() const;
 
-    void addCamiao(const Camiao &camiao);
+    void addCamiao(Camiao *camiao);
 
-    void addProduto(const Produto &produto);
+    void addProduto(Produto *produto);
 
-    Empresa(string nome, Camiao camiao, Garagem *garagem, Deposito *deposito);
-    ~Empresa(); 
+    Produto* findProduto(string nome);
 };
 

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Produto.h"
 
 Produto::Produto(string nome, long fatura, double peso, double preco, Local *destino) {
@@ -46,4 +47,12 @@ bool Produto::operator<=(const Produto &rhs) const {
 
 bool Produto::operator>=(const Produto &rhs) const {
     return !(*this < rhs);
+}
+
+void Produto::getInfo() {
+    cout << "Nome: " << nome << endl;
+    cout << "Fatura: " << fatura << endl;
+    cout << "Peso: " << peso  << endl;
+    cout << "Preço: " << preco << endl;
+    cout << "Destino: " << destino->getCidade() << endl;
 }

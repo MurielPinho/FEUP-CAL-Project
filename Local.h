@@ -7,7 +7,10 @@ class Local
 private:
     string cidade;
 public:
-    Local();
+    const string &getCidade() const;
+
+public:
+    Local(string cidade);
     ~Local();
 };
 
