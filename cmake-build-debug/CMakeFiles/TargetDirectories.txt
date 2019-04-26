@@ -1,3 +1,0 @@
-/Users/andremori/FEUP/2º aninho/cal-proj/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/andremori/FEUP/2º aninho/cal-proj/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/andremori/FEUP/2º aninho/cal-proj/cmake-build-debug/CMakeFiles/cal_proj.dir
