@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/andremori/FEUP/2º aninho/cal-proj/Camiao.h
+
+/Users/andremori/FEUP/2º aninho/cal-proj/Deposito.h
+
+/Users/andremori/FEUP/2º aninho/cal-proj/Empresa.cpp
+Empresa.h
+/Users/andremori/FEUP/2º aninho/cal-proj/Empresa.h
+
+/Users/andremori/FEUP/2º aninho/cal-proj/Empresa.h
+vector
+-
+string
+-
+Camiao.h
+/Users/andremori/FEUP/2º aninho/cal-proj/Camiao.h
+Garagem.h
+/Users/andremori/FEUP/2º aninho/cal-proj/Garagem.h
+Deposito.h
+/Users/andremori/FEUP/2º aninho/cal-proj/Deposito.h
+Produto.h
+/Users/andremori/FEUP/2º aninho/cal-proj/Produto.h
+list
+-
+
+/Users/andremori/FEUP/2º aninho/cal-proj/Garagem.h
+
+/Users/andremori/FEUP/2º aninho/cal-proj/Local.h
+string
+-
+
+/Users/andremori/FEUP/2º aninho/cal-proj/Produto.h
+Local.h
+/Users/andremori/FEUP/2º aninho/cal-proj/Local.h
+

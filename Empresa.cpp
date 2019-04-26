@@ -1,13 +1,5 @@
 #include "Empresa.h"
 
-Empresa::Empresa()
-{
-}
-
-Empresa::~Empresa()
-{
-}
-
 const string &Empresa::getNome() const {
     return nome;
 }

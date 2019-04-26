@@ -1,12 +1,11 @@
-#include <vector>
-#include <string>
-
 #include "Camiao.h"
 #include "Garagem.h"
 #include "Deposito.h"
-#include "Local.h"
 #include "Produto.h"
 #include <list>
+#include <vector>
+#include <string>
+
 
 using namespace std;
 
