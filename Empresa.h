@@ -16,6 +16,7 @@ private:
     Local *deposito;
 
     list<Produto*> produtos;
+    list<Produto*> prodEntrega;
 public:
     Empresa(string nome, Camiao *camiao, Local *garagem, Local *deposito);
 
@@ -32,5 +33,10 @@ public:
     void addProduto(Produto *produto);
 
     Produto* findProduto(string nome);
+
+	void setProdEntrega(int idCamiao);
+	
+	list<Produto*> getProdEntrega();
+
 };
 
