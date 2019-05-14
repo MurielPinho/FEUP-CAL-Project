@@ -1,9 +1,4 @@
 #include "Camiao.h"
-#include "Produto.h"
-#include <list>
-#include <vector>
-#include <string>
-
 
 using namespace std;
 
@@ -35,8 +30,7 @@ public:
     Produto* findProduto(string nome);
 
 	void setProdEntrega(int idCamiao);
-	
-	list<Produto*> getProdEntrega();
 
+    list<Produto *> getProdEntrega(int idCamiao);
 };
 

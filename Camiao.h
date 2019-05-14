@@ -1,3 +1,4 @@
+#include "Produto.h"
 class Camiao
 {
 private:

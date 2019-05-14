@@ -1,5 +1,7 @@
 #include "Local.h"
-
+#include <list>
+#include <vector>
+#include <string>
 class Produto
 {
 private:

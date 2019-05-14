@@ -23,6 +23,7 @@ void Camiao::setProd(list<Produto*> prod){
 	//val = preco
 	vector<double> cost;
 	vector<Produto*> best;
+
 	
 	for(int i = 0; i <= capacidade; i++)
 	{
@@ -30,12 +31,12 @@ void Camiao::setProd(list<Produto*> prod){
 		best.push_back(NULL);
 	}
 	
-	for(int i = 1; i <= prod.size(); i++){
-		for(k = prod.at(i).getPeso(); k <= capacidade; k++){
-			if(prod.at(i).getPreco() + cost.at(k-prod.at(i).getPeso()) > cost.at(k))
+	for(auto it = prod.begin(); it != prod.end(); it++){
+		for(int k = (*it)->getPeso(); k <= capacidade; k++){
+			if((*it)->getPreco() + cost.at(k-(*it)->getPeso()) > cost.at(k))
 			{
-				cost.at(k) = prod.at(i).getPreco() + cost.at(k-prod.at(i).getPeso()
-				best.at(k) = prod.at(i);
+				cost.at(k) = (*it)->getPreco() + cost.at(k-(*it)->getPeso());
+				best.at(k) = *it;
 			}
 		}
 	}

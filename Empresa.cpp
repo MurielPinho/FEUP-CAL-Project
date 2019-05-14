@@ -43,9 +43,9 @@ Produto *Empresa::findProduto(string nome) {
 void Empresa::setProdEntrega(int idCamiao){
 	for(int i = 0; i < frota.size(); i++)
 	{
-		if(frota.at(i).getId() == idCamiao)
+		if(frota.at(i)->getId() == idCamiao)
 		{
-			frota.at(i).setProd(produtos);
+			frota.at(i)->setProd(produtos);
 			return;
 		}
 	}
@@ -54,8 +54,10 @@ void Empresa::setProdEntrega(int idCamiao){
 list<Produto*> Empresa::getProdEntrega(int idCamiao){
 	for(int i = 0; i < frota.size(); i++)
 	{
-		if(frota.at(i).getId() == idCamiao)
-			return frota.at(i).getProd();
+		if(frota.at(i)->getId() == idCamiao)
+			return frota.at(i)->getProd();
 	}
+    list<Produto*> lista;
+    return lista;
 }
 
