@@ -51,6 +51,8 @@ GraphViewer* loadGraph(string map){
 	string line;
 	getline(infile, line);
 	int numNodes = stoi(line);
+
+	/*
 	for(int i = 0; i < numNodes; i++){
 		getline(infile, line);
 		long id;
@@ -60,6 +62,34 @@ GraphViewer* loadGraph(string map){
 		y = stod(line.substr(line.find_last_of(" "), line.find_first_of(")")-line.find_last_of(" ")));
 		res->addNode(id, x, y);
 	}
+	*/
+
+	while (getline(infile, line))
+	{
+		stringstream lines (line);
+		string value;
+		vector<string> data;
+
+		while (getline(lines, value, ','))
+		{
+			data.push_back(value);
+		}
+		string sID,sX,sY;
+		long double x, y;
+		int id;
+		sID=(data.at(0));
+		sID.erase(0,1);
+		sX=data.at(1);
+		sX.erase(find(i2.begin(), i2.end(), ' '));
+		sY=data.at(2);
+		sY.erase(i3.find(')'));
+		sY.erase(find(i3.begin(), i3.end(), ' '));
+		id=stoi(i1);
+		x=stold(i2);
+		y=stold(i3);
+		res->addNode(id,x,y);
+	}
+
 
 	return res;
 }
