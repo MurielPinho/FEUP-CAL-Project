@@ -17,7 +17,7 @@ int main() {
     double capacidade;
     string loc1, loc2;
 
-    cout << endl << "Insira a capacidade do camiÃ£o inicial: ";
+    cout << endl << "Insira a capacidade do camião inicial: ";
     cin >> capacidade;
     cin.clear();
     cin.ignore(1000, '\n');
@@ -39,7 +39,6 @@ int main() {
         menuInicial();
         cin >> opt;
         verificaOpcao(opt, 0, 3);
-        system("clear");
 
         cout << endl;
 
@@ -55,7 +54,7 @@ int main() {
 void menuInicial(){
     cout << "--------- Smart Delivery ---------" << endl;
     cout << "           Menu Inicial" << endl << endl;
-    cout << "Selecione uma opÃ§Ã£o:" << endl;
+    cout << "Selecione uma opção:" << endl;
     cout << "1. Carregar um mapa" << endl;
     cout << "2. Estoque" << endl;
     cout << "3. Navegar" << endl;
@@ -68,15 +67,50 @@ void carregarMapa(){
     int opt;
     cout << "--------- Smart Delivery ---------" << endl;
     cout << "          Carregar Mapa" << endl << endl;
-    cout << "Selecione uma opÃ§Ã£o:" << endl;
+    cout << "Selecione uma opção:" << endl;
     cout << "1. Mapa Paranhos (Pequeno)" << endl;
     cout << "2. Mapa Porto (Grande)" << endl;
     cout << "0. Voltar" << endl;
     cout << "----------------------------------" << endl;
-    cout << "OpÃ§Ã£o: ";
+    cout << "Opção: ";
     cin >> opt;
     verificaOpcao(opt, 0, 2);
 
+    if(opt == 1)
+    {
+    	GraphViewer *gv = new GraphViewer(600, 600, true);
+
+    		gv->setBackground("background.jpg");
+
+    		gv->createWindow(600, 600);
+
+
+    		gv->defineVertexColor("blue");
+    		gv->defineEdgeColor("black");
+
+    		gv->addNode(0);
+    		gv->addNode(1);
+    		gv->addEdge(0, 0, 1, EdgeType::UNDIRECTED);
+
+    		Sleep(100); // use sleep(1) in linux ; Sleep(100) on Windows
+
+    		gv->removeEdge(0);
+    		gv->removeNode(1);
+    		gv->addNode(2);
+    		gv->rearrange();
+
+    		Sleep(100);
+
+    		gv->addEdge(1, 0, 2, EdgeType::UNDIRECTED);
+
+    		gv->setVertexLabel(0, "Isto e um no");
+    		gv->setEdgeLabel(1, "Isto e uma aresta");
+
+    		gv->setVertexColor(2, "green");
+    		gv->setEdgeColor(1, "yellow");
+
+    		gv->rearrange();
+    }
     cout << endl;
 
 
@@ -86,13 +120,13 @@ void estoque() {
     int opt;
     cout << "--------- Smart Delivery ---------" << endl;
     cout << "             Estoque" << endl << endl;
-    cout << "Selecione uma opÃ§Ã£o:" << endl;
+    cout << "Selecione uma opção:" << endl;
     cout << "1. Adicionar produto" << endl;
     cout << "2. Pesquisar item" << endl;
     cout << "3. Carregar camiao" << endl;
     cout << "0. Voltar" << endl;
     cout << "----------------------------------" << endl;
-    cout << "OpÃ§Ã£o: ";
+    cout << "Opção: ";
 
     cin >> opt;
     verificaOpcao(opt, 0, 3);
@@ -113,7 +147,7 @@ void estoque() {
         cout << endl << "Insira o peso do produto: ";
         cin >> peso;
 
-        cout << endl << "Insira o preÃ§o do produto: ";
+        cout << endl << "Insira o preço do produto: ";
         cin >> preco;
 
         cout << endl << "Insira o local do destino do produto: ";
@@ -131,7 +165,7 @@ void estoque() {
         getline(cin, nome);
 
         if((produto = empresa->findProduto(nome)) == nullptr)
-            cout << "Produto nÃ£o encontrado." << endl, estoque();
+            cout << "Produto não encontrado." << endl, estoque();
         else
             produto->getInfo();
 
@@ -145,14 +179,14 @@ void navegar(){
     int opt;
     cout << "------------------- Smart Delivery ------------------" << endl;
     cout << "                       Navegar" << endl << endl;
-    cout << "Selecione uma opÃ§Ã£o:" << endl;
+    cout << "Selecione uma opção:" << endl;
     cout << "1. Visualizar mapa" << endl;
     cout << "2. Caminho mais curto entre dois pontos" << endl;
     cout << "3. Caminho mais curto para entrega de mercadorias" << endl;
     cout << "   (Passando em um conjunto de pontos de interesse)" << endl;
     cout << "0. Voltar" << endl;
     cout << "-----------------------------------------------------" << endl;
-    cout << "OpÃ§Ã£o: ";
+    cout << "Opção: ";
 
     cin >> opt;
     verificaOpcao(opt, 0, 3);
@@ -172,7 +206,7 @@ void navegar(){
 
 void verificaOpcao(int &opt, int min, int max) {
     while(opt < min || opt > max){
-        cout << endl << "Digito invÃ¡lido. Insira novamente:" << endl;
+        cout << endl << "Digito inválido. Insira novamente:" << endl;
         cin >> opt;
     }
     cin.clear();

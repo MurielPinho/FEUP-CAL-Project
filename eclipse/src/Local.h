@@ -1,5 +1,5 @@
 #include <string>
-#include "GraphViewer-1.2/cpp/graphviewer.h"
+#include "graphviewer.h"
 
 using namespace std;
 
