@@ -1,6 +1,5 @@
 #include "Utilities.h"
 
-using namespace std;
 
 void displayGraph(string map){
 	GraphViewer *gv = new GraphViewer(600, 600, true);
@@ -38,7 +37,7 @@ void displayGraph(string map){
 
 
 GraphViewer* loadGraph(string map){
-	GraphViewer *res;
+	GraphViewer *res = new GraphViewer(600, 600, true);
 
 	ifstream infile;
 	infile.open(map);
@@ -49,20 +48,7 @@ GraphViewer* loadGraph(string map){
 	}
 
 	string line;
-	getline(infile, line);
-	int numNodes = stoi(line);
-
-	/*
-	for(int i = 0; i < numNodes; i++){
-		getline(infile, line);
-		long id;
-		double x, y;
-		id = stoul(line.substr(1, line.find_first_of(",")));
-		x = stod(line.substr(line.find_first_of(" "), line.find_last_of(",")-line.find_first_of(" ")));
-		y = stod(line.substr(line.find_last_of(" "), line.find_first_of(")")-line.find_last_of(" ")));
-		res->addNode(id, x, y);
-	}
-	*/
+	getline(infile, line); //retira numero de nodes
 
 	while (getline(infile, line))
 	{
