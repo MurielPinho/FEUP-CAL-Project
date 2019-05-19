@@ -80,13 +80,13 @@ GraphViewer* loadGraph(string map){
 		sID=(data.at(0));
 		sID.erase(0,1);
 		sX=data.at(1);
-		sX.erase(find(i2.begin(), i2.end(), ' '));
+		sX.erase(find(sX.begin(), sX.end(), ' '));
 		sY=data.at(2);
-		sY.erase(i3.find(')'));
-		sY.erase(find(i3.begin(), i3.end(), ' '));
-		id=stoi(i1);
-		x=stold(i2);
-		y=stold(i3);
+		sY.erase(sY.find(')'));
+		sY.erase(find(sY.begin(), sY.end(), ' '));
+		id=stoi(sID);
+		x=stold(sX);
+		y=stold(sY);
 		res->addNode(id,x,y);
 	}
 
