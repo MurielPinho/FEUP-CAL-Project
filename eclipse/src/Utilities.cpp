@@ -36,20 +36,20 @@ void displayGraph(string map){
 }
 
 
-GraphViewer* loadGraph(string map){
+GraphViewer* loadGraph(string nodes, string edges, string tags){
 	GraphViewer *res = new GraphViewer(600, 600, true);
 
 	ifstream infile;
-	infile.open(map);
-
+	//GETTING NODES
+	infile.open(nodes);
 	if(!infile.is_open())
 	{
-		cerr << "Error opening " << map << endl;
+		cerr << "Error opening " << nodes << endl;
 	}
 
 	string line;
 	getline(infile, line); //retira numero de nodes
-
+	//Alimenta nodes
 	while (getline(infile, line))
 	{
 		stringstream lines (line);
@@ -75,7 +75,42 @@ GraphViewer* loadGraph(string map){
 		y=stold(sY);
 		res->addNode(id,x,y);
 	}
+	infile.close();
+	//GETTING EDGES
+	infile.open(edges);
+	if(!infile.is_open())
+	{
+		cerr << "Error opening " << edges << endl;
+	}
 
+	getline(infile, line); //retira numero de edges
+	int cnt = 0;
+	//Alimenta edges
+	while (getline(infile, line))
+	{
+		stringstream lines (line);
+		string value;
+		vector<string> data;
+
+		while (getline(lines, value, ','))
+		{
+			data.push_back(value);
+		}
+		string sID1,sID2;
+		int id1, id2;
+		sID1=data.at(0);
+		sID1.erase(0,1);
+
+		sID2=data.at(1);
+		sID2.erase(sID2.find(')'));
+		sID2.erase(find(sID2.begin(), sID2.end(), ' '));
+
+		id1=stoi(sID1);
+		id2=stoi(sID2);
+		res->addEdge(cnt, id1, id2, EdgeType::UNDIRECTED);
+		cnt++;
+	}
+	infile.close();
 
 	return res;
 }
