@@ -2,42 +2,26 @@
 
 
 void displayGraph(string map){
-	GraphViewer *gv = new GraphViewer(600, 600, true);
 
-		gv->setBackground("background.jpg");
+	GraphViewer *gv = loadGraph("Mapas\Porto\T04_nodes_X_Y_Porto.txt", "Mapas\Porto\T04_edges_Porto.txt", "Mapas\Porto\T04_tags_Porto.txt");
+	if(map != "Porto")
+		gv = loadGraph(NULL, NULL, NULL);
 
-		gv->createWindow(600, 600);
-		gv->defineVertexColor("blue");
-		gv->defineEdgeColor("black");
 
-		gv->addNode(0);
-		gv->addNode(1);
-		gv->addEdge(0, 0, 1, EdgeType::UNDIRECTED);
+	gv->setBackground("background.jpg");
 
-		Sleep(100); // use sleep(1) in linux ; Sleep(100) on Windows
-
-		gv->removeEdge(0);
-		gv->removeNode(1);
-		gv->addNode(2);
-		gv->rearrange();
-
-		Sleep(100);
-
-		gv->addEdge(1, 0, 2, EdgeType::UNDIRECTED);
-
-		gv->setVertexLabel(0, "Isto e um no");
-		gv->setEdgeLabel(1, "Isto e uma aresta");
-
-		gv->setVertexColor(2, "green");
-		gv->setEdgeColor(1, "yellow");
-
-		gv->rearrange();
-
+	gv->createWindow(600, 600);
+	gv->rearrange();
+	Sleep(100);
+	gv->closeWindow();
 }
 
 
 GraphViewer* loadGraph(string nodes, string edges, string tags){
 	GraphViewer *res = new GraphViewer(600, 600, true);
+
+	res->defineVertexColor("blue");
+	res->defineEdgeColor("black");
 
 	ifstream infile;
 	//GETTING NODES
@@ -73,6 +57,7 @@ GraphViewer* loadGraph(string nodes, string edges, string tags){
 		id=stoi(sID);
 		x=stold(sX);
 		y=stold(sY);
+		locais.push_back(new Local(id, x, y));
 		res->addNode(id,x,y);
 	}
 	infile.close();
@@ -100,7 +85,6 @@ GraphViewer* loadGraph(string nodes, string edges, string tags){
 		int id1, id2;
 		sID1=data.at(0);
 		sID1.erase(0,1);
-
 		sID2=data.at(1);
 		sID2.erase(sID2.find(')'));
 		sID2.erase(find(sID2.begin(), sID2.end(), ' '));
@@ -109,6 +93,40 @@ GraphViewer* loadGraph(string nodes, string edges, string tags){
 		id2=stoi(sID2);
 		res->addEdge(cnt, id1, id2, EdgeType::UNDIRECTED);
 		cnt++;
+	}
+	infile.close();
+	//GETTING TAGS
+	infile.open(edges);
+	if(!infile.is_open())
+	{
+		cerr << "Error opening " << tags << endl;
+	}
+
+	getline(infile, line); //retira numero de tags
+	//int cnt = 0;
+	//Alimenta edges
+	while (getline(infile, line))
+	{
+		string tag;
+		tag = line;
+		getline(infile, line);
+		int i = stoi(line);
+		while(i)
+		{
+			int id;
+			getline(infile, line);
+			id = stoi(line);
+			for(unsigned j = 0; j < locais.size(); j++)
+			{
+				if(locais.at(i)->getId() == id)
+				{
+					locais.at(i)->setTag(tag);
+					res->setVertexLabel(id, tag);
+					break;
+				}
+			}
+			i--;
+		}
 	}
 	infile.close();
 

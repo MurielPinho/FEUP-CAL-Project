@@ -6,12 +6,15 @@ using namespace std;
 class Local
 {
 private:
-    string cidade;
+	int id;
+	double x, y;
+	string tag;
 public:
-    const string &getCidade() const;
-
-public:
-    Local(string cidade);
+    Local(int id, double x, double y);
     ~Local();
+    int getId();
+    double getX();
+    double getY();
+    void setTag(string tag);
 };
 

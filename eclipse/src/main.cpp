@@ -1,11 +1,11 @@
 #include <iostream>
-#include "Empresa.h"
 #include "Utilities.h"
 
 using namespace std;
 
 Empresa *empresa;
-vector<GraphViewer> graphs;
+GraphViewer *graph;
+vector<Local*> locais;
 
 
 void menuInicial();
@@ -26,16 +26,17 @@ int main() {
     cin.ignore(1000, '\n');
     Camiao *camiao = new Camiao(capacidade);
 
+    /*
     cout << endl << "Insira a localidade da Garagem: ";
     getline(cin, loc1);
     Local *garagem = new Local(loc1);
 
     cout << endl << "Insira a localidade do Deposito: ";
     getline(cin, loc1);
-    Local *deposito = new Local(loc2);
+    //Local *deposito = new Local(loc2);
+	*/
 
-
-    empresa = new Empresa("SmartDelivery", camiao, garagem, deposito);
+    empresa = new Empresa("SmartDelivery", camiao, NULL, NULL);
 
     do{
         cout << endl;
@@ -81,7 +82,7 @@ void carregarMapa(){
 
     if(opt == 2)
     {
-
+    	displayGraph("Porto");
     }
     cout << endl;
 
@@ -126,10 +127,10 @@ void estoque() {
         cin.clear();
         cin.ignore(1000, '\n');
         getline(cin, loc);
-        Local *local = new Local(loc);
+        //Local *local = new Local(loc);
 
-        Produto *p = new Produto(nome, fatura, peso, preco, local);
-        empresa->addProduto(p);
+        //Produto *p = new Produto(nome, fatura, peso, preco, local);
+        //empresa->addProduto(p);
     } else if(opt == 2){
         Produto *produto;
         string nome;
