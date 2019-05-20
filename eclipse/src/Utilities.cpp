@@ -2,11 +2,14 @@
 
 
 void displayGraph(string map){
-
-	GraphViewer *gv = loadGraph("Mapas\Porto\T04_nodes_X_Y_Porto.txt", "Mapas\Porto\T04_edges_Porto.txt", "Mapas\Porto\T04_tags_Porto.txt");
+/*
+	GraphViewer *gv = loadGraph("Mapas\\Porto\\T04_nodes_lat_lon_Porto.txt", "Mapas\\Porto\\T04_edges_Porto.txt", "Mapas\\Porto\\T04_tags_Porto.txt");
 	if(map != "Porto")
 		gv = loadGraph(NULL, NULL, NULL);
 
+
+	if(gv == NULL)
+		exit (1);
 
 	gv->setBackground("background.jpg");
 
@@ -14,11 +17,28 @@ void displayGraph(string map){
 	gv->rearrange();
 	Sleep(100);
 	gv->closeWindow();
+	*/
+	GraphViewer *gv = new GraphViewer(1000, 1000, false);
+
+		gv->setBackground("background.jpg");
+
+		gv->createWindow(2000, 2000);
+
+
+		gv->defineVertexColor("blue");
+		gv->defineEdgeColor("black");
+
+		gv->addNode(0, 865, -342); //3 ultimos algarismos
+		gv->addNode(1, 912, -197);
+		gv->addEdge(0, 0, 1, EdgeType::UNDIRECTED);
+
+		Sleep(100); // use sleep(1) in linux ; Sleep(100) on Windows
+		gv->rearrange();
 }
 
 
 GraphViewer* loadGraph(string nodes, string edges, string tags){
-	GraphViewer *res = new GraphViewer(600, 600, true);
+	GraphViewer *res = new GraphViewer(600, 600, false);
 
 	res->defineVertexColor("blue");
 	res->defineEdgeColor("black");
@@ -29,7 +49,9 @@ GraphViewer* loadGraph(string nodes, string edges, string tags){
 	if(!infile.is_open())
 	{
 		cerr << "Error opening " << nodes << endl;
+		return NULL;
 	}
+
 
 	string line;
 	getline(infile, line); //retira numero de nodes
@@ -45,7 +67,7 @@ GraphViewer* loadGraph(string nodes, string edges, string tags){
 			data.push_back(value);
 		}
 		string sID,sX,sY;
-		long double x, y;
+		int x, y;
 		int id;
 		sID=(data.at(0));
 		sID.erase(0,1);
@@ -55,17 +77,21 @@ GraphViewer* loadGraph(string nodes, string edges, string tags){
 		sY.erase(sY.find(')'));
 		sY.erase(find(sY.begin(), sY.end(), ' '));
 		id=stoi(sID);
-		x=stold(sX);
-		y=stold(sY);
+		x=stoi(sX);
+		y=stoi(sY);
+		y *= -1;
 		locais.push_back(new Local(id, x, y));
+		cout << "x: " << x << " y: " << y << endl;
 		res->addNode(id,x,y);
 	}
 	infile.close();
+	return NULL;
 	//GETTING EDGES
 	infile.open(edges);
 	if(!infile.is_open())
 	{
 		cerr << "Error opening " << edges << endl;
+		return NULL;
 	}
 
 	getline(infile, line); //retira numero de edges
@@ -95,11 +121,13 @@ GraphViewer* loadGraph(string nodes, string edges, string tags){
 		cnt++;
 	}
 	infile.close();
+	/*
 	//GETTING TAGS
 	infile.open(edges);
 	if(!infile.is_open())
 	{
 		cerr << "Error opening " << tags << endl;
+		return NULL;
 	}
 
 	getline(infile, line); //retira numero de tags
@@ -121,14 +149,15 @@ GraphViewer* loadGraph(string nodes, string edges, string tags){
 				if(locais.at(i)->getId() == id)
 				{
 					locais.at(i)->setTag(tag);
-					res->setVertexLabel(id, tag);
+					cout << "Tags: " << id << " " << tag << endl;
+					//res->setVertexLabel(id, tag);
 					break;
 				}
 			}
 			i--;
 		}
 	}
-	infile.close();
+	infile.close();*/
 
 	return res;
 }
