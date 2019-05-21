@@ -7,22 +7,23 @@ Local::Local(int id, double x, double y)
 	this->y = y;
 }
 
-int Local::getId()
-{
-	return id;
+int Local::getId() const{
+	return this->id;
 }
 
-double Local::getX()
-{
-	return x;
+double Local::getX() const{
+	return this->x;
 }
 
-double Local::getY()
-{
-	return y;
+double Local::getY() const{
+	return this->y;
 }
 
 void Local::setTag(string tag)
 {
 	this->tag = tag;
+}
+
+bool Local::operator == (const Local &p2) const{
+	return this->id == p2.getId();
 }

@@ -1,4 +1,4 @@
-#include "Utilities.h"
+#include "Empresa.h"
 #include <queue>
 #include <limits>
 #include <cmath>
@@ -91,7 +91,7 @@ Edge<T>::Edge(Vertex<T> *d, double w): dest(d), weight(w) {}
 template <class T>
 class Graph {
 	vector<Vertex<T> *> vertexSet;    // vertex set
-
+	vector<T> locals;
 	void dfsVisit(Vertex<T> *v,  vector<T> & res) const;
 	Vertex<T> *findVertex(const T &in) const;
 	bool dfsIsDAG(Vertex<T> *v) const;
@@ -110,6 +110,7 @@ public:
 	vector<T> getPath(const T &origin, const T &dest) const;
 	Vertex<T> * initSingleSource(const T &orig);
 	bool relax(Vertex<T> *v, Vertex<T> *w, double weight);
+	T getNode(int id);
 };
 
 template <class T>
@@ -134,6 +135,7 @@ bool Graph<T>::addVertex(const T &in) {
 	if ( findVertex(in) != NULL)
 		return false;
 	vertexSet.push_back(new Vertex<T>(in));
+	locals.push_back(in);
 	return true;
 }
 
@@ -438,4 +440,15 @@ bool Graph<T>::relax(Vertex<T> *v, Vertex<T> *w, double weight) {
 	}
 	else
 		return false;
+}
+
+template<class T>
+T Graph<T>::getNode(int id)
+{
+	for(auto nos : locals){
+		if(nos.getId() == id)
+			return nos;
+	}
+	Local res(-1, -1, -1);
+	return res;
 }

@@ -1,13 +1,17 @@
 #include <iostream>
-#include "Graph.h"
+#include "Utilities.h"
 
 using namespace std;
 
 Empresa *empresa;
 GraphViewer *graph;
-vector<Local*> locais;
 
+//Graphs
+Graph<Local> porto;
+Graph<Local> maia;
 
+//Functions
+void createNetwork(Graph<Local> cidade);
 void menuInicial();
 void carregarMapa();
 void estoque();
@@ -82,7 +86,7 @@ void carregarMapa(){
 
     if(opt == 2)
     {
-    	displayGraph("Porto");
+    	displayGraph(graph);
     }
     cout << endl;
 
@@ -184,5 +188,10 @@ void verificaOpcao(int &opt, int min, int max) {
     }
     cin.clear();
     cin.ignore(1000, '\n');
+}
+
+
+void createNetwork(Graph<Local> cidade){
+	graph = loadGraph("Mapas\\Porto\\T04_nodes_lat_lon_Porto.txt", "Mapas\\Porto\\T04_edges_Porto.txt", "Mapas\\Porto\\T04_tags_Porto.txt", cidade);
 }
 

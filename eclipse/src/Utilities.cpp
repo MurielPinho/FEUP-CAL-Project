@@ -1,7 +1,7 @@
 #include "Utilities.h"
 
 
-void displayGraph(string map){
+void displayGraph(GraphViewer* g){
 /*
 	GraphViewer *gv = loadGraph("Mapas\\Porto\\T04_nodes_lat_lon_Porto.txt", "Mapas\\Porto\\T04_edges_Porto.txt", "Mapas\\Porto\\T04_tags_Porto.txt");
 	if(map != "Porto")
@@ -37,7 +37,7 @@ void displayGraph(string map){
 }
 
 
-GraphViewer* loadGraph(string nodes, string edges, string tags){
+GraphViewer* loadGraph(string nodes, string edges, string tags, Graph<Local> & city){
 	GraphViewer *res = new GraphViewer(600, 600, false);
 
 	res->defineVertexColor("blue");
@@ -79,13 +79,12 @@ GraphViewer* loadGraph(string nodes, string edges, string tags){
 		id=stoi(sID);
 		x=stoi(sX);
 		y=stoi(sY);
-		y *= -1;
-		locais.push_back(new Local(id, x, y));
-		cout << "x: " << x << " y: " << y << endl;
-		res->addNode(id,x,y);
+		const Local aux(id, x, y);
+		city.addVertex(aux); //adiciona no graph
+		res->addNode(id,x,y); //adiciona no viewer
 	}
 	infile.close();
-	return NULL;
+
 	//GETTING EDGES
 	infile.open(edges);
 	if(!infile.is_open())
@@ -114,16 +113,17 @@ GraphViewer* loadGraph(string nodes, string edges, string tags){
 		sID2=data.at(1);
 		sID2.erase(sID2.find(')'));
 		sID2.erase(find(sID2.begin(), sID2.end(), ' '));
-
 		id1=stoi(sID1);
 		id2=stoi(sID2);
+		const Local src = city.getNode(id1), dest = city.getNode(id2);
+		city.addEdge(src, dest, 0);
 		res->addEdge(cnt, id1, id2, EdgeType::UNDIRECTED);
 		cnt++;
 	}
 	infile.close();
 	/*
 	//GETTING TAGS
-	infile.open(edges);
+	infile.open(tags);
 	if(!infile.is_open())
 	{
 		cerr << "Error opening " << tags << endl;
