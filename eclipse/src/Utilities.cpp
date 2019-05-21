@@ -3,11 +3,11 @@
 vector<pair<int,int>> edgesPair;
 
 void displayGraph(Graph<Local> g){
-	GraphViewer *gv = new GraphViewer(10000, 10000, true);
+	GraphViewer *gv = new GraphViewer(100000, 100000, true);
 
 	//cout << "grafos" << endl;
 		gv->setBackground("background.jpg");
-		gv->createWindow(10000, 10000);
+		gv->createWindow(100000, 100000);
 		gv->defineVertexColor("blue");
 		gv->defineEdgeColor("black");
 
