@@ -11,7 +11,7 @@ Graph<Local> porto;
 Graph<Local> maia;
 
 //Functions
-void createNetwork(Graph<Local> cidade);
+void createNetwork(Graph<Local> cidade, string name);
 void menuInicial();
 void carregarMapa();
 void estoque();
@@ -76,17 +76,25 @@ void carregarMapa(){
     cout << "--------- Smart Delivery ---------" << endl;
     cout << "          Carregar Mapa" << endl << endl;
     cout << "Selecione uma opção:" << endl;
-    cout << "1. Mapa Paranhos (Pequeno)" << endl;
-    cout << "2. Mapa Porto (Grande)" << endl;
+    cout << "1. Mapa Maia" << endl;
+    cout << "2. Mapa Porto" << endl;
     cout << "0. Voltar" << endl;
     cout << "----------------------------------" << endl;
     cout << "Opção: ";
     cin >> opt;
     verificaOpcao(opt, 0, 2);
 
+    if(opt == 1)
+    {
+    	createNetwork(maia, "maia");
+    	displayGraph(maia);
+    }
     if(opt == 2)
     {
-    	displayGraph(graph);
+    	cout << "entrei" <<endl;
+    	createNetwork(porto, "porto");
+    	cout << "passei1" << endl;
+    	displayGraph(porto);
     }
     cout << endl;
 
@@ -191,7 +199,11 @@ void verificaOpcao(int &opt, int min, int max) {
 }
 
 
-void createNetwork(Graph<Local> cidade){
-	graph = loadGraph("Mapas\\Porto\\T04_nodes_lat_lon_Porto.txt", "Mapas\\Porto\\T04_edges_Porto.txt", "Mapas\\Porto\\T04_tags_Porto.txt", cidade);
+void createNetwork(Graph<Local> cidade, string name){
+	if(name == "maia")
+		loadGraph("Mapas\\Maia\\T04_nodes_X_Y_Maia.txt", "Mapas\\Maia\\T04_edges_Maia.txt", "Mapas\\Maia\\T04_tags_Maia.txt", cidade);
+	else
+		loadGraph("Mapas\\Porto\\T04_nodes_X_Y_Porto.txt", "Mapas\\Porto\\T04_edges_Porto.txt", "Mapas\\Porto\\T04_tags_Porto.txt", cidade);
+
 }
 

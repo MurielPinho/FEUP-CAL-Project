@@ -111,6 +111,7 @@ public:
 	Vertex<T> * initSingleSource(const T &orig);
 	bool relax(Vertex<T> *v, Vertex<T> *w, double weight);
 	T getNode(int id);
+	vector<T> getLocals();
 };
 
 template <class T>
@@ -451,4 +452,9 @@ T Graph<T>::getNode(int id)
 	}
 	Local res(-1, -1, -1);
 	return res;
+}
+template<class T>
+vector<T> Graph<T>::getLocals()
+{
+	return locals;
 }
