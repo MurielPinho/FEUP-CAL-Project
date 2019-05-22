@@ -29,6 +29,8 @@ public:
 
     bool operator>=(const Produto &rhs) const;
 
+    bool operator==(const Produto &rhs) const;
+
     void getInfo();
 
     Produto(string nome, long fatura, double peso, double preco, Local *destino);

@@ -10,8 +10,8 @@ private:
     Local *garagem;
     Local *deposito;
 
-    list<Produto*> produtos;
-    list<Produto*> prodEntrega;
+    vector<Produto*> produtos;
+
 public:
     Empresa(string nome, Camiao *camiao, Local *garagem, Local *deposito);
 
@@ -31,6 +31,10 @@ public:
 
 	void setProdEntrega(int idCamiao);
 
-    list<Produto *> getProdEntrega(int idCamiao);
+    vector<Produto *> getProdEntrega(int idCamiao);
+
+    void updateProd(vector<Produto*> oldProd);
+
+    bool findTruck(int id);
 };
 

@@ -19,7 +19,12 @@ void displayGraph(Graph<Local> g){
 		{
 			gv->addEdge(j, edgesPair.at(j).first, edgesPair.at(j).second, EdgeType::UNDIRECTED);
 		}
-
+/*
+		for(unsigned j = 0; j < g.getLocals().size(); j++)
+		{
+			gv->setVertexLabel(g.getLocals().at(j).getId(), g.getLocals().at(j).getTag());
+		}
+*/
 		Sleep(100); // use sleep(1) in linux ; Sleep(100) on Windows
 
 		gv->rearrange();

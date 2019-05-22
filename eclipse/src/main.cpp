@@ -7,8 +7,7 @@ Empresa *empresa;
 GraphViewer *graph;
 
 //Graphs
-Graph<Local> porto;
-Graph<Local> maia;
+Graph<Local> city;
 
 //Functions
 void createNetwork(Graph<Local> & cidade, string name);
@@ -17,24 +16,31 @@ void carregarMapa();
 void estoque();
 void navegar();
 void verificaOpcao(int &opt, int min, int max);
-
+void definirGaragem();
+void definirDepo();
 
 int main() {
     int opt;
     double capacidade;
-    string loc1, loc2;
 
+    carregarMapa();
+/*
+	//DEBUG MODE
+    cout << "Imprimir" << endl;
+    displayGraph(city);
+    return 0;
+*/
     cout << endl << "Insira a capacidade do camião inicial: ";
     cin >> capacidade;
     cin.clear();
     cin.ignore(1000, '\n');
     Camiao *camiao = new Camiao(capacidade);
 
-    /*
-    cout << endl << "Insira a localidade da Garagem: ";
-    getline(cin, loc1);
-    Local *garagem = new Local(loc1);
+    definirGaragem();
 
+    definirDepo();
+
+/*
     cout << endl << "Insira a localidade do Deposito: ";
     getline(cin, loc1);
     //Local *deposito = new Local(loc2);
@@ -50,10 +56,8 @@ int main() {
 
         cout << endl;
 
-        if(opt == 1) carregarMapa();
-        else if(opt == 2) estoque();
-        else if(opt == 3) navegar();
-
+        if(opt == 1) estoque();
+        else if(opt == 2) navegar();
 
     } while (opt != 0);
     return 0;
@@ -63,42 +67,31 @@ void menuInicial(){
     cout << "--------- Smart Delivery ---------" << endl;
     cout << "           Menu Inicial" << endl << endl;
     cout << "Selecione uma opção:" << endl;
-    cout << "1. Carregar um mapa" << endl;
-    cout << "2. Estoque" << endl;
-    cout << "3. Navegar" << endl;
+    cout << "1. Estoque" << endl;
+    cout << "2. Navegar" << endl;
     cout << "0. Sair" << endl;
     cout << "----------------------------------" << endl;
     cout << "Opção: ";
 }
 
 void carregarMapa(){
-    int opt;
-    cout << "--------- Smart Delivery ---------" << endl;
-    cout << "          Carregar Mapa" << endl << endl;
-    cout << "Selecione uma opção:" << endl;
-    cout << "1. Mapa Maia" << endl;
-    cout << "2. Mapa Porto" << endl;
-    cout << "0. Voltar" << endl;
+	int bg;
+	cout << "---------Bem Vindo ao Smart Delivery ---------" << endl;
+    cout << "Selecione em qual cidade deseja operar:" << endl;
+    cout << "1. Porto" << endl;
+    cout << "2. Maia" << endl;
+    cout << "0. Sair" << endl;
     cout << "----------------------------------" << endl;
     cout << "Opção: ";
-    cin >> opt;
-    verificaOpcao(opt, 0, 2);
+    cin >> bg;
+    verificaOpcao(bg, 0, 2);
 
-    if(opt == 1)
-    {
-    	createNetwork(maia, "maia");
-    	displayGraph(maia);
-    }
-    if(opt == 2)
-    {
-    	//cout << "entrei" <<endl;
-    	createNetwork(porto, "porto");
-    	//cout << "passei1" << endl;
-    	displayGraph(porto);
-    }
-    cout << endl;
-
-
+    if(bg == 1)
+    	createNetwork(city, "porto");
+    else if(bg == 2)
+    	createNetwork(city, "maia");
+    else
+    	exit (0);
 }
 
 void estoque() {
@@ -144,7 +137,8 @@ void estoque() {
         //Produto *p = new Produto(nome, fatura, peso, preco, local);
         //empresa->addProduto(p);
     } else if(opt == 2){
-        Produto *produto;
+
+    	Produto *produto;
         string nome;
         cout << "Insira o nome do produto: ";
         getline(cin, nome);
@@ -154,6 +148,21 @@ void estoque() {
         else
             produto->getInfo();
 
+    } else {
+    	int id;
+    	bool ret = false;
+    	cout << "Insira o ID do camião: ";
+        cin >> id;
+        for(unsigned i = 0; i < empresa->getFrota().size(); i++)
+        {
+        	ret = true;
+        	if(empresa->getFrota().at(i)->getId() == id)
+        		empresa->setProdEntrega(id);
+        }
+        if(ret)
+        	cout << "Camião carregado com sucesso!" << endl;
+        else
+        	cout << "ID não encontrado" << endl;
     }
 
 
@@ -173,20 +182,53 @@ void navegar(){
     cout << "-----------------------------------------------------" << endl;
     cout << "Opção: ";
 
+
     cin >> opt;
     verificaOpcao(opt, 0, 3);
-
-    switch (opt){
-        case 1:
-
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
+    if(opt == 1)
+    {
+        displayGraph(city);
     }
-
-    cout << endl;
+    else if(opt == 2)
+    {
+    	int c, id;
+    	vector<Local> aux;
+    	cout << endl << "Escolha o sentido" << endl;
+        cout << "1. Garagem -> Depósito" << endl;
+        cout << "2. Última entrega -> Garagem" << endl;
+        cout << "Opção: ";
+        cin >> c;
+        verificaOpcao(c, 1, 2);
+        if(c == 1)
+        {
+        	aux = city.getPath(city.getGarage(), city.getDepo());
+        	//fazer display grafo;
+        }
+        else
+        {
+            cout << "Qual ID do camião" << endl;
+            cout << "ID: ";
+            cin >> id;
+            if(!empresa->findTruck(id)){
+            	cout << "Camião não existe" << endl;
+            	exit (0);
+            }
+        	Local *extra = empresa->getProdEntrega(id).at(empresa->getProdEntrega(id).size()-1)->getDestino();
+        	if(empresa->getProdEntrega(id).empty()){
+        		cout << "Camião não esta na rua" << endl;
+        		exit (0);
+        	}
+        	Local e = *extra;
+        	aux = city.getPath(e, city.getGarage());
+        	//fazer display grafo;
+        }
+    }
+    else if(opt == 3)
+    {
+    	//fazer display grafo a partir de vetores;
+    }
+    else
+    	exit (0);
 }
 
 void verificaOpcao(int &opt, int min, int max) {
@@ -207,3 +249,50 @@ void createNetwork(Graph<Local> & cidade, string name){
 
 }
 
+void definirGaragem(){
+	int bg;
+	cout << "Definir garagem" << endl;
+    cout << "Selecione uma opção:" << endl;
+    cout << "1. Inserir ID da garagem" << endl;
+    cout << "2. Ver IDs disponíveis" << endl;
+    cin >> bg;
+    verificaOpcao(bg, 1, 2);
+
+    if(bg == 1)
+    {
+    	int id;
+    	cout << "Insira o id: ";
+    	cin >> id;
+    	if(city.setGarage(id))
+    		cout << "Garagem registada com sucesso" << endl;
+    	else
+    		cout << "ID inválido" << endl;
+    }
+    else if(bg == 2)
+    	//Abrir arquivo...
+    	exit (0);
+}
+
+void definirDepo(){
+	int bg;
+	cout << "Definir depósito" << endl;
+    cout << "Selecione uma opção:" << endl;
+    cout << "1. Inserir ID do depósito" << endl;
+    cout << "2. Ver IDs disponíveis" << endl;
+    cin >> bg;
+    verificaOpcao(bg, 1, 2);
+
+    if(bg == 1)
+    {
+    	int id;
+    	cout << "Insira o id: ";
+    	cin >> id;
+    	if(city.setDepo(id))
+    		cout << "Depósito registada com sucesso" << endl;
+    	else
+    		cout << "ID inválido" << endl;
+    }
+    else if(bg == 2)
+    	//Abrir arquivo...
+    	exit (0);
+}

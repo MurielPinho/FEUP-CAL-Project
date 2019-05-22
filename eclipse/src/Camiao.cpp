@@ -17,7 +17,7 @@ int Camiao::getId(){
 	return id;
 }
 
-void Camiao::setProd(list<Produto*> prod){
+void Camiao::setProd(vector<Produto*> prod){
 
 	//size = peso
 	//val = preco
@@ -41,13 +41,13 @@ void Camiao::setProd(list<Produto*> prod){
 		}
 	}
 	
-	for(int i = 0; i < best.size(); i++)
+	for(unsigned i = 0; i < best.size(); i++)
 	{
 		entrega.push_back(best.at(i));
 	}
 }
 
-list<Produto*> Camiao::getProd(){
+vector<Produto*> Camiao::getProd(){
 	return entrega;
 }
 

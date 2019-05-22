@@ -112,6 +112,11 @@ public:
 	bool relax(Vertex<T> *v, Vertex<T> *w, double weight);
 	T getNode(int id);
 	vector<T> getLocals();
+	bool setGarage(int id);
+	bool setDepo(int id);
+	T getGarage();
+	T getDepo();
+
 };
 
 template <class T>
@@ -137,7 +142,7 @@ bool Graph<T>::addVertex(const T &in) {
 		return false;
 	vertexSet.push_back(new Vertex<T>(in));
 	locals.push_back(in);
-	cout << locals.size() << endl;
+	//cout << locals.size() << endl;
 	return true;
 }
 
@@ -205,7 +210,7 @@ vector<T> Graph<T>::dfs() const {
 	for (auto v : vertexSet)
 		v->visited = false;
 	for (auto v : vertexSet)
-	    if (! v->visited)
+	    if (!v->visited || !findVertex(v)->getInfo().getDepo() || !findVertex(v)->getInfo().getGarage())
 	    	dfsVisit(v, res);
 	return res;
 }
@@ -458,4 +463,52 @@ template<class T>
 vector<T> Graph<T>::getLocals()
 {
 	return locals;
+}
+
+template<class T>
+bool Graph<T>::setGarage(int id){
+	for(auto nos : locals){
+		if(nos.getId() == id)
+		{
+			nos.setGarage();
+			findVertex(nos)->getInfo().setGarage();
+			return true;
+		}
+	}
+	return false;
+}
+template<class T>
+bool Graph<T>::setDepo(int id){
+	for(auto nos : locals){
+		if(nos.getId() == id)
+		{
+			nos.setDepo();
+			findVertex(nos)->getInfo().setDepo();
+			return true;
+		}
+	}
+	return false;
+}
+
+template<class T>
+T Graph<T>::getGarage(){
+	for(auto nos : locals){
+		if(findVertex(nos)->getInfo().getGarage())
+		{
+			return findVertex(nos)->getInfo();
+		}
+	}
+	Local res(-1, -1, -1);
+	return res;
+}
+template<class T>
+T Graph<T>::getDepo(){
+	for(auto nos : locals){
+		if(findVertex(nos)->getInfo().getDepo())
+		{
+			return findVertex(nos)->getInfo();
+		}
+	}
+	Local res(-1, -1, -1);
+	return res;
 }

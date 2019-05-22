@@ -49,10 +49,20 @@ bool Produto::operator>=(const Produto &rhs) const {
     return !(*this < rhs);
 }
 
+bool Produto::operator==(const Produto &rhs) const {
+    if(nome == rhs.getNome())
+    	if(fatura == rhs.getFatura())
+    		if(peso == rhs.getPeso())
+    			if(preco == rhs.getPreco())
+    				if(destino == rhs.getDestino())
+    					return true;
+	return false;
+}
+
 void Produto::getInfo() {
     cout << "Nome: " << nome << endl;
     cout << "Fatura: " << fatura << endl;
     cout << "Peso: " << peso  << endl;
-    cout << "PreÃ§o: " << preco << endl;
+    cout << "Preço: " << preco << endl;
     //cout << "Destino: " << destino->getCidade() << endl;
 }
