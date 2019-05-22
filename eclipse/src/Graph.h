@@ -92,10 +92,10 @@ template <class T>
 class Graph {
 	vector<Vertex<T> *> vertexSet;    // vertex set
 	vector<T> locals;
+public:
 	void dfsVisit(Vertex<T> *v,  vector<T> & res) const;
 	Vertex<T> *findVertex(const T &in) const;
 	bool dfsIsDAG(Vertex<T> *v) const;
-public:
 	int getNumVertex() const;
 	bool addVertex(const T &in);
 	bool removeVertex(const T &in);
@@ -210,7 +210,7 @@ vector<T> Graph<T>::dfs() const {
 	for (auto v : vertexSet)
 		v->visited = false;
 	for (auto v : vertexSet)
-	    if (!v->visited || !findVertex(v)->getInfo().getDepo() || !findVertex(v)->getInfo().getGarage())
+	    if (!v->visited || !findVertex(v->info)->getInfo().getGarage() || !findVertex(v->info)->getInfo().getDepo())
 	    	dfsVisit(v, res);
 	return res;
 }

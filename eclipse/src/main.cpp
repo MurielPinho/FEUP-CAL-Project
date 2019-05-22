@@ -24,6 +24,7 @@ int main() {
     double capacidade;
 
     carregarMapa();
+
 /*
 	//DEBUG MODE
     cout << "Imprimir" << endl;
@@ -46,7 +47,7 @@ int main() {
     //Local *deposito = new Local(loc2);
 	*/
 
-    empresa = new Empresa("SmartDelivery", camiao, NULL, NULL);
+    empresa = new Empresa("SmartDelivery", camiao);
 
     do{
         cout << endl;
@@ -202,7 +203,7 @@ void navegar(){
         if(c == 1)
         {
         	aux = city.getPath(city.getGarage(), city.getDepo());
-        	//fazer display grafo;
+        	displayGraph(aux);
         }
         else
         {
@@ -220,12 +221,28 @@ void navegar(){
         	}
         	Local e = *extra;
         	aux = city.getPath(e, city.getGarage());
-        	//fazer display grafo;
+        	displayGraph(aux);
         }
     }
     else if(opt == 3)
     {
-    	//fazer display grafo a partir de vetores;
+    	Graph<Local> aux;
+    	int id;
+        cout << "Qual ID do camião" << endl;
+        cout << "ID: ";
+        cin >> id;
+        if(!empresa->findTruck(id)){
+        	cout << "Camião não existe" << endl;
+        	exit (0);
+        }
+        Camiao *c = empresa->getTruck(id);
+
+        for(unsigned i = 0; i < c->getProd().size(); i++)
+        {
+        	Local e = *c->getProd().at(i)->getDestino();
+        	aux.addVertex(city.findVertex(e)->getInfo());
+        }
+    	displayGraph(aux.dfs());
     }
     else
     	exit (0);

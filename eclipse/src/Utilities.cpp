@@ -30,6 +30,34 @@ void displayGraph(Graph<Local> g){
 		gv->rearrange();
 }
 
+void displayGraph(vector<Local> g){
+	GraphViewer *gv = new GraphViewer(100000, 100000, false);
+
+		gv->setBackground("background.jpg");
+		gv->createWindow(100000, 100000);
+		gv->defineVertexColor("blue");
+		gv->defineEdgeColor("black");
+
+		for(unsigned j = 0; j < g.size(); j++)
+		{
+			gv->addNode(g.at(j).getId(),g.at(j).getX(), g.at(j).getY());
+		}
+
+		for(unsigned j = 0; j < g.size(); j++)
+		{
+			gv->addEdge(j, g.at(j).getId(), g.at(j+1).getId(),EdgeType::UNDIRECTED);
+		}
+/*
+		for(unsigned j = 0; j < g.getLocals().size(); j++)
+		{
+			gv->setVertexLabel(g.getLocals().at(j).getId(), g.getLocals().at(j).getTag());
+		}
+*/
+		Sleep(100); // use sleep(1) in linux ; Sleep(100) on Windows
+
+		gv->rearrange();
+}
+
 
 void loadGraph(string nodes, string edges, string tags, Graph<Local> & city){
 	edgesPair.clear();

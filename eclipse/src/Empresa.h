@@ -7,21 +7,14 @@ class Empresa
 private:
     string nome;
     vector<Camiao*> frota;
-    Local *garagem;
-    Local *deposito;
-
     vector<Produto*> produtos;
 
 public:
-    Empresa(string nome, Camiao *camiao, Local *garagem, Local *deposito);
+    Empresa(string nome, Camiao *camiao);
 
     const string &getNome() const;
 
     const vector<Camiao*> &getFrota() const;
-
-    Local *getGaragem() const;
-
-    Local *getDeposito() const;
 
     void addCamiao(Camiao *camiao);
 
@@ -36,5 +29,7 @@ public:
     void updateProd(vector<Produto*> oldProd);
 
     bool findTruck(int id);
+
+    Camiao* getTruck(int id);
 };
 

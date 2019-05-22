@@ -8,24 +8,14 @@ const vector<Camiao*> &Empresa::getFrota() const {
     return frota;
 }
 
-Local *Empresa::getGaragem() const {
-    return garagem;
-}
-
-Local *Empresa::getDeposito() const {
-    return deposito;
-}
-
 void Empresa::addCamiao(Camiao *camiao) {
     frota.push_back(camiao);
 
 }
 
-Empresa::Empresa(string nome, Camiao *camiao, Local *garagem, Local *deposito) {
+Empresa::Empresa(string nome, Camiao *camiao) {
     this->nome = nome;
     frota.push_back(camiao);
-    this->garagem = garagem;
-    this->deposito = deposito;
 }
 
 void Empresa::addProduto(Produto *produto) {
@@ -84,9 +74,17 @@ void Empresa::updateProd(vector<Produto*> oldProd){
 }
 
 bool Empresa::findTruck(int id){
-	for(int i = 0; i < frota.size(); i++)
+	for(unsigned i = 0; i < frota.size(); i++)
 		if(frota.at(i)->getId() == id)
 			return true;
 
 	return false;
+}
+
+Camiao* Empresa::getTruck(int id){
+	for(unsigned i = 0; i < frota.size(); i++)
+		if(frota.at(i)->getId() == id)
+			return frota.at(i);
+
+	return NULL;
 }

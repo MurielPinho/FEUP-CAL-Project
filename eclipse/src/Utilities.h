@@ -9,4 +9,5 @@
 using namespace std;
 
 void displayGraph(Graph<Local> g);
+void displayGraph(vector<Local> g);
 void loadGraph(string nodes, string edges, string tags, Graph<Local> & city);
