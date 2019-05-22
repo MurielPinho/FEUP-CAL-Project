@@ -3,9 +3,8 @@
 vector<pair<int,int>> edgesPair;
 
 void displayGraph(Graph<Local> g){
-	GraphViewer *gv = new GraphViewer(100000, 100000, true);
+	GraphViewer *gv = new GraphViewer(100000, 100000, false);
 
-	//cout << "grafos" << endl;
 		gv->setBackground("background.jpg");
 		gv->createWindow(100000, 100000);
 		gv->defineVertexColor("blue");

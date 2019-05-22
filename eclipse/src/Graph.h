@@ -137,6 +137,7 @@ bool Graph<T>::addVertex(const T &in) {
 		return false;
 	vertexSet.push_back(new Vertex<T>(in));
 	locals.push_back(in);
+	cout << locals.size() << endl;
 	return true;
 }
 

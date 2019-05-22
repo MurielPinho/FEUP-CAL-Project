@@ -11,7 +11,7 @@ Graph<Local> porto;
 Graph<Local> maia;
 
 //Functions
-void createNetwork(Graph<Local> cidade, string name);
+void createNetwork(Graph<Local> & cidade, string name);
 void menuInicial();
 void carregarMapa();
 void estoque();
@@ -91,9 +91,9 @@ void carregarMapa(){
     }
     if(opt == 2)
     {
-    	cout << "entrei" <<endl;
+    	//cout << "entrei" <<endl;
     	createNetwork(porto, "porto");
-    	cout << "passei1" << endl;
+    	//cout << "passei1" << endl;
     	displayGraph(porto);
     }
     cout << endl;
@@ -199,7 +199,7 @@ void verificaOpcao(int &opt, int min, int max) {
 }
 
 
-void createNetwork(Graph<Local> cidade, string name){
+void createNetwork(Graph<Local> & cidade, string name){
 	if(name == "maia")
 		loadGraph("Mapas\\Maia\\T04_nodes_X_Y_Maia.txt", "Mapas\\Maia\\T04_edges_Maia.txt", "Mapas\\Maia\\T04_tags_Maia.txt", cidade);
 	else
