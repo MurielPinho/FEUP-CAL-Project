@@ -1,3 +1,7 @@
 .vscode/
 cmake-build-debug/
 .idea/
+.DS_Store
+eclipse/.DS_Store
+.DS_Store
+eclipse/.DS_Store
