@@ -236,7 +236,7 @@ void navegar(){
         	exit (0);
         }
         Camiao *c = empresa->getTruck(id);
-
+        aux.addVertex(city.getDepo());
         for(unsigned i = 0; i < c->getProd().size(); i++)
         {
         	Local e = *c->getProd().at(i)->getDestino();
@@ -263,7 +263,6 @@ void createNetwork(Graph<Local> & cidade, string name){
 		loadGraph("Mapas\\Maia\\T04_nodes_X_Y_Maia.txt", "Mapas\\Maia\\T04_edges_Maia.txt", "Mapas\\Maia\\T04_tags_Maia.txt", cidade);
 	else
 		loadGraph("Mapas\\Porto\\T04_nodes_X_Y_Porto.txt", "Mapas\\Porto\\T04_edges_Porto.txt", "Mapas\\Porto\\T04_tags_Porto.txt", cidade);
-
 }
 
 void definirGaragem(){
