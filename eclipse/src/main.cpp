@@ -6,6 +6,7 @@ using namespace std;
 Empresa *empresa;
 GraphViewer *graph;
 
+//ADD CAMIOES e ADD PRODUTOS
 //Graphs
 Graph<Local> city;
 
@@ -204,6 +205,7 @@ void navegar(){
         {
         	aux = city.getPath(city.getGarage(), city.getDepo());
         	displayGraph(aux);
+        	aux.clear();
         }
         else
         {
@@ -222,6 +224,7 @@ void navegar(){
         	Local e = *extra;
         	aux = city.getPath(e, city.getGarage());
         	displayGraph(aux);
+        	aux.clear();
         }
     }
     else if(opt == 3)

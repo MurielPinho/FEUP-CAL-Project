@@ -19,12 +19,11 @@ void displayGraph(Graph<Local> g){
 		{
 			gv->addEdge(j, edgesPair.at(j).first, edgesPair.at(j).second, EdgeType::UNDIRECTED);
 		}
-/*
+
 		for(unsigned j = 0; j < g.getLocals().size(); j++)
 		{
-			gv->setVertexLabel(g.getLocals().at(j).getId(), g.getLocals().at(j).getTag());
+			gv->setVertexLabel(g.findVertex(g.getLocals().at(j))->getInfo().getId(), g.findVertex(g.getLocals().at(j))->getInfo().getTag());
 		}
-*/
 		Sleep(100); // use sleep(1) in linux ; Sleep(100) on Windows
 
 		gv->rearrange();
@@ -152,7 +151,7 @@ void loadGraph(string nodes, string edges, string tags, Graph<Local> & city){
 		//res->addEdge(cnt, id1, id2, EdgeType::UNDIRECTED);
 	}
 	infile.close();
-/*
+
 	//GETTING TAGS
 	infile.open(tags);
 	if(!infile.is_open())
@@ -160,32 +159,22 @@ void loadGraph(string nodes, string edges, string tags, Graph<Local> & city){
 		cerr << "Error opening " << tags << endl;
 		exit (1);
 	}
-
+	int nTags;
 	getline(infile, line); //retira numero de tags
-	//int cnt = 0;
-	//Alimenta tags
-	while (getline(infile, line))
+
+	nTags = stoi(line);
+	for(unsigned i = 0; i < nTags; i++)
 	{
-		string tag;
-		tag = line;
 		getline(infile, line);
-		int i = stoi(line);
-		while(i)
+		string tag = line;
+		getline(infile, line);
+		int num = stoi(line);
+		for(unsigned j = 0; j < num; j++)
 		{
-			int id;
 			getline(infile, line);
-			id = stoi(line);
-			for(unsigned j = 0; j < city.getLocals().size(); j++)
-			{
-				if(city.getLocals().at(j).getId() == id)
-				{
-					city.getLocals().at(j).setTag(tag);
-					break;
-				}
-			}
-			i--;
+			city.findVertex(Local(stoi(line),0,0))->getInfo().setTag(tag);
 		}
 	}
+
 	infile.close();
-*/
 }
