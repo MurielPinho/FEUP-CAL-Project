@@ -3,10 +3,21 @@
 vector<pair<int,int>> edgesPair;
 
 void displayGraph(Graph<Local> g){
-	GraphViewer *gv = new GraphViewer(100000, 100000, false);
+
+	int maxX = ceil(g.getLocals().at(0).getX()), maxY = ceil(g.getLocals().at(0).getY());
+
+	for(unsigned i = 1; i < g.getLocals().size(); i++)
+	{
+		if(maxX < ceil(g.getLocals().at(i).getX()))
+			maxX = ceil(g.getLocals().at(i).getX());
+		if(maxY < ceil(g.getLocals().at(i).getY()))
+			maxY = ceil(g.getLocals().at(i).getY());
+	}
+
+	GraphViewer *gv = new GraphViewer(maxX, maxY, false);
 
 		gv->setBackground("background.jpg");
-		gv->createWindow(100000, 100000);
+		gv->createWindow(maxX, maxY);
 		gv->defineVertexColor("blue");
 		gv->defineEdgeColor("black");
 
@@ -19,30 +30,43 @@ void displayGraph(Graph<Local> g){
 		{
 			gv->addEdge(j, edgesPair.at(j).first, edgesPair.at(j).second, EdgeType::UNDIRECTED);
 		}
-
+/*
 		for(unsigned j = 0; j < g.getLocals().size(); j++)
 		{
 			gv->setVertexLabel(g.findVertex(g.getLocals().at(j))->getInfo().getId(), g.findVertex(g.getLocals().at(j))->getInfo().getTag());
 		}
+*/
 		Sleep(100); // use sleep(1) in linux ; Sleep(100) on Windows
 
 		gv->rearrange();
 }
 
 void displayGraph(vector<Local> g){
-	GraphViewer *gv = new GraphViewer(100000, 100000, false);
+
+	int maxX = ceil(g.at(0).getX()), maxY = ceil(g.at(0).getY());
+
+	for(unsigned i = 1; i < g.size(); i++)
+	{
+		if(maxX < ceil(g.at(i).getX()))
+			maxX = ceil(g.at(i).getX());
+		if(maxY < ceil(g.at(i).getY()))
+			maxY = ceil(g.at(i).getY());
+	}
+
+	GraphViewer *gv = new GraphViewer(maxX, maxY, false);
 
 		gv->setBackground("background.jpg");
-		gv->createWindow(100000, 100000);
+		gv->createWindow(maxX, maxY);
 		gv->defineVertexColor("blue");
 		gv->defineEdgeColor("black");
 
 		for(unsigned j = 0; j < g.size(); j++)
 		{
+			//cout << g.at(j).getX() << " " << g.at(j).getY() << endl;
 			gv->addNode(g.at(j).getId(),g.at(j).getX(), g.at(j).getY());
 		}
 
-		for(unsigned j = 0; j < g.size(); j++)
+		for(unsigned j = 0; j < g.size()-1; j++)
 		{
 			gv->addEdge(j, g.at(j).getId(), g.at(j+1).getId(),EdgeType::UNDIRECTED);
 		}
@@ -147,7 +171,9 @@ void loadGraph(string nodes, string edges, string tags, Graph<Local> & city){
 		id2=stoi(sID2);
 		edgesPair.push_back(make_pair(id1,id2));
 		const Local src = city.getNode(id1), dest = city.getNode(id2);
-		city.addEdge(src, dest, 0);
+		double w;
+		w = sqrt(pow(dest.getX()-src.getX(), 2)+pow(dest.getY()-src.getY(), 2));
+		city.addEdge(src, dest, w);
 		//res->addEdge(cnt, id1, id2, EdgeType::UNDIRECTED);
 	}
 	infile.close();
@@ -159,7 +185,7 @@ void loadGraph(string nodes, string edges, string tags, Graph<Local> & city){
 		cerr << "Error opening " << tags << endl;
 		exit (1);
 	}
-	int nTags;
+	unsigned nTags;
 	getline(infile, line); //retira numero de tags
 
 	nTags = stoi(line);
@@ -168,7 +194,7 @@ void loadGraph(string nodes, string edges, string tags, Graph<Local> & city){
 		getline(infile, line);
 		string tag = line;
 		getline(infile, line);
-		int num = stoi(line);
+		unsigned num = stoi(line);
 		for(unsigned j = 0; j < num; j++)
 		{
 			getline(infile, line);

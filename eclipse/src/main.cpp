@@ -203,7 +203,13 @@ void navegar(){
         verificaOpcao(c, 1, 2);
         if(c == 1)
         {
+        	city.dijkstraShortestPath(city.getGarage());
         	aux = city.getPath(city.getGarage(), city.getDepo());
+        	cout << aux.size() << endl;
+/*
+        	for(unsigned i = 0; i < aux.size(); i++)
+        		cout << aux.at(i).getId() << endl;
+*/
         	displayGraph(aux);
         	aux.clear();
         }

@@ -210,7 +210,7 @@ vector<T> Graph<T>::dfs() const {
 	for (auto v : vertexSet)
 		v->visited = false;
 	for (auto v : vertexSet)
-	    if (!v->visited || !findVertex(v->info)->getInfo().getGarage() || !findVertex(v->info)->getInfo().getDepo())
+	    if (!v->visited)
 	    	dfsVisit(v, res);
 	return res;
 }
@@ -467,11 +467,11 @@ vector<T> Graph<T>::getLocals()
 
 template<class T>
 bool Graph<T>::setGarage(int id){
-	for(auto nos : locals){
-		if(nos.getId() == id)
+	for(auto nos : vertexSet){
+		if(nos->info.getId() == id)
 		{
-			nos.setGarage();
-			findVertex(nos)->getInfo().setGarage();
+			//nos.setGarage();
+			nos->info.setGarage();
 			return true;
 		}
 	}
@@ -479,11 +479,11 @@ bool Graph<T>::setGarage(int id){
 }
 template<class T>
 bool Graph<T>::setDepo(int id){
-	for(auto nos : locals){
-		if(nos.getId() == id)
+	for(auto nos : vertexSet){
+		if(nos->info.getId() == id)
 		{
-			nos.setDepo();
-			findVertex(nos)->getInfo().setDepo();
+			//nos.setDepo();
+			nos->info.setDepo();
 			return true;
 		}
 	}
