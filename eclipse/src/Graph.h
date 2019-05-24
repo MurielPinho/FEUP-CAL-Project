@@ -32,6 +32,7 @@ public:
 	T getInfo() const;
 	double getDist() const;
 	Vertex *getPath() const;
+	vector<Edge<T>> getAdj();
 	friend class Graph<T>;
 	friend class MutablePriorityQueue<Vertex<T>>;
 };
@@ -68,14 +69,18 @@ bool Vertex<T>::removeEdgeTo(Vertex<T> *d) {
 		}
 	return false;
 }
+template <class T>
+vector<Edge<T>> Vertex<T>::getAdj(){
+	return this->adj;
+}
 
 //CLASS EDGE
 /*--------------------------------------------------------------------------------------------------------------------*/
 template <class T>
 class Edge {
+public:
 	Vertex<T> * dest;      // destination vertex
 	double weight;         // edge weight
-public:
 	Edge(Vertex<T> *d, double w);
 	friend class Graph<T>;
 	friend class Vertex<T>;
@@ -409,8 +414,8 @@ template<class T>
 vector<T> Graph<T>::getPath(const T &origin, const T &dest) const{
 	vector<T> res;
 	auto v = findVertex(dest);
-	if (v == nullptr || v->dist == INF) // missing or disconnected
-		return res;
+//	if (v == nullptr || v->dist == INF) // missing or disconnected
+//		return res;
 	for ( ; v != nullptr; v = v->path)
 		res.push_back(v->info);
 	reverse(res.begin(), res.end());

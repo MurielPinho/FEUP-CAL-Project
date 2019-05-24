@@ -228,6 +228,7 @@ void navegar(){
         		exit (0);
         	}
         	Local e = *extra;
+        	city.dijkstraShortestPath(e);
         	aux = city.getPath(e, city.getGarage());
         	displayGraph(aux);
         	aux.clear();
@@ -251,6 +252,7 @@ void navegar(){
         	Local e = *c->getProd().at(i)->getDestino();
         	aux.addVertex(city.findVertex(e)->getInfo());
         }
+
     	displayGraph(aux.dfs());
     }
     else

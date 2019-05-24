@@ -23,7 +23,9 @@ void displayGraph(Graph<Local> g){
 
 		for(unsigned j = 0; j < g.getLocals().size(); j++)
 		{
-			gv->addNode(g.getLocals().at(j).getId(), g.getLocals().at(j).getX(), g.getLocals().at(j).getY());
+			Vertex<Local> *a = g.findVertex(g.getLocals().at(j));
+			gv->addNode(a->getInfo().getId(), a->getInfo().getX(), a->getInfo().getY());
+			gv->setVertexLabel(a->getInfo().getId(),a->getInfo().getTag());
 		}
 
 		for(unsigned j = 0; j < g.getLocals().size(); j++)
