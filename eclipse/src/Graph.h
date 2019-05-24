@@ -414,8 +414,8 @@ template<class T>
 vector<T> Graph<T>::getPath(const T &origin, const T &dest) const{
 	vector<T> res;
 	auto v = findVertex(dest);
-//	if (v == nullptr || v->dist == INF) // missing or disconnected
-//		return res;
+	if (v == nullptr || v->dist == INF) // missing or disconnected
+		return res;
 	for ( ; v != nullptr; v = v->path)
 		res.push_back(v->info);
 	reverse(res.begin(), res.end());

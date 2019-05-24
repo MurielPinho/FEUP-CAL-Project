@@ -176,6 +176,7 @@ void loadGraph(string nodes, string edges, string tags, Graph<Local> & city){
 		double w;
 		w = sqrt(pow(dest.getX()-src.getX(), 2)+pow(dest.getY()-src.getY(), 2));
 		city.addEdge(src, dest, w);
+		city.addEdge(dest, src, w);
 		//res->addEdge(cnt, id1, id2, EdgeType::UNDIRECTED);
 	}
 	infile.close();

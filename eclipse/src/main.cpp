@@ -5,6 +5,7 @@ using namespace std;
 
 Empresa *empresa;
 GraphViewer *graph;
+bool porto = false;
 
 //ADD CAMIOES e ADD PRODUTOS
 //Graphs
@@ -17,8 +18,8 @@ void carregarMapa();
 void estoque();
 void navegar();
 void verificaOpcao(int &opt, int min, int max);
-void definirGaragem();
-void definirDepo();
+void definirGaragemPorto();
+void definirDepoPorto();
 
 int main() {
     int opt;
@@ -38,15 +39,15 @@ int main() {
     cin.ignore(1000, '\n');
     Camiao *camiao = new Camiao(capacidade);
 
-    definirGaragem();
-
-    definirDepo();
-
-/*
-    cout << endl << "Insira a localidade do Deposito: ";
-    getline(cin, loc1);
-    //Local *deposito = new Local(loc2);
-	*/
+    if(porto)
+    {
+    	definirDepoPorto();
+    	definirGaragemPorto();
+    }
+    else
+    {
+    	//maia load
+    }
 
     empresa = new Empresa("SmartDelivery", camiao);
 
@@ -89,9 +90,15 @@ void carregarMapa(){
     verificaOpcao(bg, 0, 2);
 
     if(bg == 1)
+    {
     	createNetwork(city, "porto");
+    	porto = true;
+    }
     else if(bg == 2)
+    {
     	createNetwork(city, "maia");
+    	porto = false;
+    }
     else
     	exit (0);
 }
@@ -113,7 +120,8 @@ void estoque() {
 
 
     if(opt == 1){
-        string nome, loc;
+        string nome;
+        int id;
         long fatura;
         double peso, preco;
 
@@ -130,14 +138,12 @@ void estoque() {
         cout << endl << "Insira o preço do produto: ";
         cin >> preco;
 
-        cout << endl << "Insira o local do destino do produto: ";
-        cin.clear();
-        cin.ignore(1000, '\n');
-        getline(cin, loc);
-        //Local *local = new Local(loc);
+        cout << endl << "Insira o Id do local de destino do produto: ";
+        cin >> id;
 
-        //Produto *p = new Produto(nome, fatura, peso, preco, local);
-        //empresa->addProduto(p);
+        Local *local = new Local(city.findVertex(Local(id, 0, 0))->getInfo());
+        Produto *p = new Produto(nome, fatura, peso, preco, local);
+        empresa->addProduto(p);
     } else if(opt == 2){
 
     	Produto *produto;
@@ -276,50 +282,68 @@ void createNetwork(Graph<Local> & cidade, string name){
 		loadGraph("Mapas\\Porto\\T04_nodes_X_Y_Porto.txt", "Mapas\\Porto\\T04_edges_Porto.txt", "Mapas\\Porto\\T04_tags_Porto.txt", cidade);
 }
 
-void definirGaragem(){
+void definirGaragemPorto(){
 	int bg;
 	cout << "Definir garagem" << endl;
     cout << "Selecione uma opção:" << endl;
-    cout << "1. Inserir ID da garagem" << endl;
-    cout << "2. Ver IDs disponíveis" << endl;
+    cout << "1. Boa Vista" << endl;
+    cout << "2. São João" << endl;
+    cout << "3. Estádio do Dragão" << endl;
+    cout << "4. Matosinhos" << endl;
     cin >> bg;
-    verificaOpcao(bg, 1, 2);
+    verificaOpcao(bg, 1, 4);
 
     if(bg == 1)
     {
-    	int id;
-    	cout << "Insira o id: ";
-    	cin >> id;
-    	if(city.setGarage(id))
+    	if(city.setGarage(137817855))
     		cout << "Garagem registada com sucesso" << endl;
-    	else
-    		cout << "ID inválido" << endl;
     }
     else if(bg == 2)
-    	//Abrir arquivo...
-    	exit (0);
+    {
+    	if(city.setGarage(429833953))
+    		cout << "Garagem registada com sucesso" << endl;
+    }
+    else if(bg == 3)
+    {
+    	if(city.setGarage(424013918))
+    		cout << "Garagem registada com sucesso" << endl;
+    }
+    else
+    {
+    	if(city.setGarage(111506000))
+    		cout << "Garagem registada com sucesso" << endl;
+    }
 }
 
-void definirDepo(){
+void definirDepoPorto(){
 	int bg;
-	cout << "Definir depósito" << endl;
+	cout << "Definir garagem" << endl;
     cout << "Selecione uma opção:" << endl;
-    cout << "1. Inserir ID do depósito" << endl;
-    cout << "2. Ver IDs disponíveis" << endl;
+    cout << "1. Boa Vista" << endl;
+    cout << "2. São João" << endl;
+    cout << "3. Estádio do Dragão" << endl;
+    cout << "4. Matosinhos" << endl;
     cin >> bg;
-    verificaOpcao(bg, 1, 2);
+    verificaOpcao(bg, 1, 4);
 
     if(bg == 1)
     {
-    	int id;
-    	cout << "Insira o id: ";
-    	cin >> id;
-    	if(city.setDepo(id))
-    		cout << "Depósito registada com sucesso" << endl;
-    	else
-    		cout << "ID inválido" << endl;
+    	if(city.setDepo(137817855))
+    		cout << "Garagem registada com sucesso" << endl;
     }
     else if(bg == 2)
-    	//Abrir arquivo...
-    	exit (0);
+    {
+    	if(city.setDepo(429833953))
+    		cout << "Garagem registada com sucesso" << endl;
+    }
+    else if(bg == 3)
+    {
+    	if(city.setDepo(424013918))
+    		cout << "Garagem registada com sucesso" << endl;
+    }
+    else
+    {
+    	if(city.setDepo(111506000))
+    		cout << "Garagem registada com sucesso" << endl;
+    }
 }
