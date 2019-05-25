@@ -5,9 +5,8 @@ using namespace std;
 
 Empresa *empresa;
 GraphViewer *graph;
-bool porto = false;
+bool porto;
 
-//ADD CAMIOES e ADD PRODUTOS
 //Graphs
 Graph<Local> city;
 
@@ -27,12 +26,6 @@ int main() {
 
     carregarMapa();
 
-/*
-	//DEBUG MODE
-    cout << "Imprimir" << endl;
-    displayGraph(city);
-    return 0;
-*/
     cout << endl << "Insira a capacidade do camião inicial: ";
     cin >> capacidade;
     cin.clear();
@@ -101,6 +94,8 @@ void carregarMapa(){
     }
     else
     	exit (0);
+
+    cout << endl;
 }
 
 void estoque() {
@@ -111,15 +106,18 @@ void estoque() {
     cout << "1. Adicionar produto" << endl;
     cout << "2. Pesquisar item" << endl;
     cout << "3. Carregar camiao" << endl;
+    cout << "4. Adicionar camiao" << endl;
     cout << "0. Voltar" << endl;
     cout << "----------------------------------" << endl;
     cout << "Opção: ";
 
     cin >> opt;
-    verificaOpcao(opt, 0, 3);
+    verificaOpcao(opt, 0, 4);
 
+    if(opt == 0)
+    	return;
 
-    if(opt == 1){
+    else if(opt == 1){
         string nome;
         int id;
         long fatura;
@@ -138,10 +136,15 @@ void estoque() {
         cout << endl << "Insira o preço do produto: ";
         cin >> preco;
 
-        cout << endl << "Insira o Id do local de destino do produto: ";
-        cin >> id;
+        Local *local;
+        do{
+        	cout << endl << "Insira o Id do local de destino do produto: ";
+        	cin >> id;
+        	local = new Local(city.findVertex(Local(id, 0, 0))->getInfo());
+			if(city.findVertex(Local(id, 0, 0)) == NULL)
+				cout << "ID inválido! Tente novamente." << endl;
+        }while(city.findVertex(Local(id, 0, 0)) == NULL);
 
-        Local *local = new Local(city.findVertex(Local(id, 0, 0))->getInfo());
         Produto *p = new Produto(nome, fatura, peso, preco, local);
         empresa->addProduto(p);
     } else if(opt == 2){
@@ -156,7 +159,9 @@ void estoque() {
         else
             produto->getInfo();
 
-    } else {
+    }
+    else if(opt == 3)
+    {
     	int id;
     	bool ret = false;
     	cout << "Insira o ID do camião: ";
@@ -172,7 +177,17 @@ void estoque() {
         else
         	cout << "ID não encontrado" << endl;
     }
+    else
+    {
+    	double capacidade;
+    	cout << endl << "Insira a capacidade do camião: ";
+        cin >> capacidade;
+        cin.clear();
+        cin.ignore(1000, '\n');
+        Camiao *camiao = new Camiao(capacidade);
+        empresa->addCamiao(camiao);
 
+    }
 
     cout << endl;
 }
@@ -193,7 +208,11 @@ void navegar(){
 
     cin >> opt;
     verificaOpcao(opt, 0, 3);
-    if(opt == 1)
+
+    if(opt == 0)
+    	return;
+
+    else if(opt == 1)
     {
         displayGraph(city);
     }
@@ -212,10 +231,6 @@ void navegar(){
         	city.dijkstraShortestPath(city.getGarage());
         	aux = city.getPath(city.getGarage(), city.getDepo());
         	cout << aux.size() << endl;
-/*
-        	for(unsigned i = 0; i < aux.size(); i++)
-        		cout << aux.at(i).getId() << endl;
-*/
         	displayGraph(aux);
         	aux.clear();
         }
@@ -226,12 +241,12 @@ void navegar(){
             cin >> id;
             if(!empresa->findTruck(id)){
             	cout << "Camião não existe" << endl;
-            	exit (0);
+            	return;
             }
         	Local *extra = empresa->getProdEntrega(id).at(empresa->getProdEntrega(id).size()-1)->getDestino();
         	if(empresa->getProdEntrega(id).empty()){
         		cout << "Camião não esta na rua" << endl;
-        		exit (0);
+        		return;
         	}
         	Local e = *extra;
         	city.dijkstraShortestPath(e);
@@ -249,7 +264,7 @@ void navegar(){
         cin >> id;
         if(!empresa->findTruck(id)){
         	cout << "Camião não existe" << endl;
-        	exit (0);
+        	return;
         }
         Camiao *c = empresa->getTruck(id);
         aux.addVertex(city.getDepo());
@@ -263,6 +278,8 @@ void navegar(){
     }
     else
     	exit (0);
+
+    cout << endl;
 }
 
 void verificaOpcao(int &opt, int min, int max) {
@@ -290,6 +307,7 @@ void definirGaragemPorto(){
     cout << "2. São João" << endl;
     cout << "3. Estádio do Dragão" << endl;
     cout << "4. Matosinhos" << endl;
+    cout << "Opção: ";
     cin >> bg;
     verificaOpcao(bg, 1, 4);
 
@@ -323,6 +341,7 @@ void definirDepoPorto(){
     cout << "2. São João" << endl;
     cout << "3. Estádio do Dragão" << endl;
     cout << "4. Matosinhos" << endl;
+    cout << "Opção: ";
     cin >> bg;
     verificaOpcao(bg, 1, 4);
 

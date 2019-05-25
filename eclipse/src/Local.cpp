@@ -7,6 +7,7 @@ Local::Local(int id, double x, double y)
 	this->y = y;
 	this->isGarage = false;
 	this->isDepo = false;
+	this->tag = "";
 }
 
 int Local::getId() const{

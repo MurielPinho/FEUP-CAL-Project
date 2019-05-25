@@ -64,5 +64,5 @@ void Produto::getInfo() {
     cout << "Fatura: " << fatura << endl;
     cout << "Peso: " << peso  << endl;
     cout << "Preço: " << preco << endl;
-    //cout << "Destino: " << destino->getCidade() << endl;
+    cout << "Destino: " << destino->getId() << endl;
 }

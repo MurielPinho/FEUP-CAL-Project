@@ -24,20 +24,17 @@ void displayGraph(Graph<Local> g){
 		for(unsigned j = 0; j < g.getLocals().size(); j++)
 		{
 			Vertex<Local> *a = g.findVertex(g.getLocals().at(j));
-			gv->addNode(a->getInfo().getId(), a->getInfo().getX(), a->getInfo().getY());
-			gv->setVertexLabel(a->getInfo().getId(),a->getInfo().getTag());
+			if(a->getAdj().size() > 0)
+			{
+				gv->addNode(a->getInfo().getId(), a->getInfo().getX(), a->getInfo().getY());
+				gv->setVertexLabel(a->getInfo().getId(),to_string(a->getInfo().getId()));
+			}
 		}
 
 		for(unsigned j = 0; j < g.getLocals().size(); j++)
 		{
 			gv->addEdge(j, edgesPair.at(j).first, edgesPair.at(j).second, EdgeType::UNDIRECTED);
 		}
-/*
-		for(unsigned j = 0; j < g.getLocals().size(); j++)
-		{
-			gv->setVertexLabel(g.findVertex(g.getLocals().at(j))->getInfo().getId(), g.findVertex(g.getLocals().at(j))->getInfo().getTag());
-		}
-*/
 		Sleep(100); // use sleep(1) in linux ; Sleep(100) on Windows
 
 		gv->rearrange();
@@ -64,20 +61,14 @@ void displayGraph(vector<Local> g){
 
 		for(unsigned j = 0; j < g.size(); j++)
 		{
-			//cout << g.at(j).getX() << " " << g.at(j).getY() << endl;
 			gv->addNode(g.at(j).getId(),g.at(j).getX(), g.at(j).getY());
+			gv->setVertexLabel(g.at(j).getId(), to_string(g.at(j).getId()));
 		}
 
 		for(unsigned j = 0; j < g.size()-1; j++)
 		{
 			gv->addEdge(j, g.at(j).getId(), g.at(j+1).getId(),EdgeType::UNDIRECTED);
 		}
-/*
-		for(unsigned j = 0; j < g.getLocals().size(); j++)
-		{
-			gv->setVertexLabel(g.getLocals().at(j).getId(), g.getLocals().at(j).getTag());
-		}
-*/
 		Sleep(100); // use sleep(1) in linux ; Sleep(100) on Windows
 
 		gv->rearrange();
@@ -139,7 +130,6 @@ void loadGraph(string nodes, string edges, string tags, Graph<Local> & city){
 		flag = false;
 		const Local aux(id, x, y);
 		city.addVertex(aux); //adiciona no graph
-		//res->addNode(id,x,y); //adiciona no viewer
 	}
 	infile.close();
 	//GETTING EDGES
@@ -177,7 +167,6 @@ void loadGraph(string nodes, string edges, string tags, Graph<Local> & city){
 		w = sqrt(pow(dest.getX()-src.getX(), 2)+pow(dest.getY()-src.getY(), 2));
 		city.addEdge(src, dest, w);
 		city.addEdge(dest, src, w);
-		//res->addEdge(cnt, id1, id2, EdgeType::UNDIRECTED);
 	}
 	infile.close();
 
