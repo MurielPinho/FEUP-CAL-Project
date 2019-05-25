@@ -19,6 +19,8 @@ void navegar();
 void verificaOpcao(int &opt, int min, int max);
 void definirGaragemPorto();
 void definirDepoPorto();
+void definirGaragemMaia();
+void definirDepoMaia();
 
 int main() {
     int opt;
@@ -39,7 +41,8 @@ int main() {
     }
     else
     {
-    	//maia load
+    	definirDepoMaia();
+    	definirGaragemMaia();
     }
 
     empresa = new Empresa("SmartDelivery", camiao);
@@ -81,6 +84,8 @@ void carregarMapa(){
     cout << "Opção: ";
     cin >> bg;
     verificaOpcao(bg, 0, 2);
+
+    cout << "Aguarde enquanto fazemos o mapeamento da cidade!" << endl;
 
     if(bg == 1)
     {
@@ -331,6 +336,7 @@ void definirGaragemPorto(){
     	if(city.setGarage(111506000))
     		cout << "Garagem registada com sucesso" << endl;
     }
+    cout << endl;
 }
 
 void definirDepoPorto(){
@@ -348,21 +354,68 @@ void definirDepoPorto(){
     if(bg == 1)
     {
     	if(city.setDepo(137817855))
-    		cout << "Garagem registada com sucesso" << endl;
+    		cout << "Depósito registado com sucesso" << endl;
     }
     else if(bg == 2)
     {
     	if(city.setDepo(429833953))
-    		cout << "Garagem registada com sucesso" << endl;
+    		cout << "Depósito registado com sucesso" << endl;
     }
     else if(bg == 3)
     {
     	if(city.setDepo(424013918))
-    		cout << "Garagem registada com sucesso" << endl;
+    		cout << "Depósito registado com sucesso" << endl;
     }
     else
     {
     	if(city.setDepo(111506000))
+    		cout << "Depósito registado com sucesso" << endl;
+    }
+    cout << endl;
+}
+
+void definirGaragemMaia(){
+	int bg;
+	cout << "Definir garagem" << endl;
+    cout << "Selecione uma opção:" << endl;
+    cout << "1. Águas Santas" << endl;
+    cout << "2. Cidade da Maia" << endl;
+    cout << "Opção: ";
+    cin >> bg;
+    verificaOpcao(bg, 1, 2);
+
+    if(bg == 1)
+    {
+    	if(city.setGarage(269567464))
     		cout << "Garagem registada com sucesso" << endl;
     }
+    else
+    {
+    	if(city.setGarage(445067436))
+    		cout << "Garagem registada com sucesso" << endl;
+    }
+    cout << endl;
+}
+
+void definirDepoMaia(){
+	int bg;
+	cout << "Definir garagem" << endl;
+    cout << "Selecione uma opção:" << endl;
+    cout << "1. Águas Santas" << endl;
+    cout << "2. Cidade da Maia" << endl;
+    cout << "Opção: ";
+    cin >> bg;
+    verificaOpcao(bg, 1, 2);
+
+    if(bg == 1)
+    {
+    	if(city.setDepo(269567464))
+    		cout << "Depósito registado com sucesso" << endl;
+    }
+    else
+    {
+    	if(city.setDepo(445067436))
+    		cout << "Depósito registado com sucesso" << endl;
+    }
+    cout << endl;
 }
