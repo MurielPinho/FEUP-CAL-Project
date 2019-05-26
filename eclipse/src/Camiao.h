@@ -14,5 +14,6 @@ public:
     void setProd(vector<Produto*> prod);
     vector<Produto*> getProd();
     void addProduto(Produto *produto);
+    double getCapacidade();
 
 };

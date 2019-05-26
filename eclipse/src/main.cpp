@@ -21,6 +21,7 @@ void definirGaragemPorto();
 void definirDepoPorto();
 void definirGaragemMaia();
 void definirDepoMaia();
+void selectProd(Camiao* c);
 
 int main() {
     int opt;
@@ -152,6 +153,7 @@ void estoque() {
 
         Produto *p = new Produto(nome, fatura, peso, preco, local);
         empresa->addProduto(p);
+        cout << endl << "Produto adicionado!" << endl;
     } else if(opt == 2){
 
     	Produto *produto;
@@ -175,11 +177,11 @@ void estoque() {
         {
         	ret = true;
         	if(empresa->getFrota().at(i)->getId() == id)
-        		empresa->setProdEntrega(id);
+        		selectProd(empresa->getFrota().at(i));
         }
-        if(ret)
+        if(ret){
         	cout << "Camião carregado com sucesso!" << endl;
-        else
+        }else
         	cout << "ID não encontrado" << endl;
     }
     else
@@ -271,18 +273,22 @@ void navegar(){
         	cout << "Camião não existe" << endl;
         	return;
         }
+
         Camiao *c = empresa->getTruck(id);
+        if(c->getProd().empty())
+        {
+        	cout << "Não há produtos a serem entregues com este camião" << endl;
+        	return;
+        }
         aux.addVertex(city.getDepo());
         for(unsigned i = 0; i < c->getProd().size(); i++)
         {
         	Local e = *c->getProd().at(i)->getDestino();
         	aux.addVertex(city.findVertex(e)->getInfo());
         }
-
     	displayGraph(aux.dfs());
     }
-    else
-    	exit (0);
+
 
     cout << endl;
 }
@@ -295,7 +301,6 @@ void verificaOpcao(int &opt, int min, int max) {
     cin.clear();
     cin.ignore(1000, '\n');
 }
-
 
 void createNetwork(Graph<Local> & cidade, string name){
 	if(name == "maia")
@@ -341,7 +346,7 @@ void definirGaragemPorto(){
 
 void definirDepoPorto(){
 	int bg;
-	cout << "Definir garagem" << endl;
+	cout << "Definir depósito" << endl;
     cout << "Selecione uma opção:" << endl;
     cout << "1. Boa Vista" << endl;
     cout << "2. São João" << endl;
@@ -399,7 +404,7 @@ void definirGaragemMaia(){
 
 void definirDepoMaia(){
 	int bg;
-	cout << "Definir garagem" << endl;
+	cout << "Definir depósito" << endl;
     cout << "Selecione uma opção:" << endl;
     cout << "1. Águas Santas" << endl;
     cout << "2. Cidade da Maia" << endl;
@@ -418,4 +423,31 @@ void definirDepoMaia(){
     		cout << "Depósito registado com sucesso" << endl;
     }
     cout << endl;
+}
+
+void selectProd(Camiao* c){
+	//size = peso
+	//val = preco
+	vector<int> cost;
+	vector<Produto*> best;
+
+	for(int i = 0; i <= c->getCapacidade(); i++)
+	{
+		cost.push_back(0);
+	}
+	for(unsigned i = 0; i < empresa->getProd().size(); i++){
+		for(int k = empresa->getProd().at(i)->getPeso(); k <= c->getCapacidade(); k++){
+			if(empresa->getProd().at(i)->getPreco() + cost.at(k-empresa->getProd().at(i)->getPeso()) > cost.at(k))
+			{
+				cost.at(k) = empresa->getProd().at(i)->getPreco() + cost.at(k-empresa->getProd().at(i)->getPeso());
+				best.push_back(empresa->getProd().at(i));
+				break;
+			}
+		}
+	}
+
+	for(unsigned i = 0; i < best.size(); i++)
+	{
+			c->addProduto(best.at(i));
+	}
 }

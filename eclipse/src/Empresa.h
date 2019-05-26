@@ -31,5 +31,7 @@ public:
     bool findTruck(int id);
 
     Camiao* getTruck(int id);
+
+    vector<Produto*> getProd();
 };
 

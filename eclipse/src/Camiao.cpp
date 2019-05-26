@@ -23,13 +23,13 @@ void Camiao::setProd(vector<Produto*> prod){
 	vector<double> cost;
 	vector<Produto*> best;
 
-	
+
 	for(int i = 0; i <= capacidade; i++)
 	{
 		cost.push_back(0.0);
 		best.push_back(NULL);
 	}
-	
+
 	for(auto it = prod.begin(); it != prod.end(); it++){
 		for(int k = (*it)->getPeso(); k <= capacidade; k++){
 			if((*it)->getPreco() + cost.at(k-(*it)->getPeso()) > cost.at(k))
@@ -39,7 +39,7 @@ void Camiao::setProd(vector<Produto*> prod){
 			}
 		}
 	}
-	
+
 	for(unsigned i = 0; i < best.size(); i++)
 	{
 		entrega.push_back(best.at(i));
@@ -52,4 +52,8 @@ vector<Produto*> Camiao::getProd(){
 
 void Camiao::addProduto(Produto *produto) {
     entrega.push_back(produto);
+}
+
+double Camiao::getCapacidade(){
+	return capacidade;
 }

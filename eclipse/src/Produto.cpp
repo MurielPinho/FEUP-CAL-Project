@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Produto.h"
 
-Produto::Produto(string nome, long fatura, double peso, double preco, Local *destino) {
+Produto::Produto(string nome, long fatura, int peso, int preco, Local *destino) {
     this->nome = nome;
     this->fatura = fatura;
     this->peso = peso;
@@ -17,11 +17,11 @@ long Produto::getFatura() const {
     return fatura;
 }
 
-double Produto::getPeso() const {
+int Produto::getPeso() const {
     return peso;
 }
 
-double Produto::getPreco() const {
+int Produto::getPreco() const {
     return preco;
 }
 
@@ -30,10 +30,6 @@ Local *Produto::getDestino() const {
 }
 
 bool Produto::operator<(const Produto &rhs) const {
-    if (nome < rhs.nome)
-        return true;
-    if (rhs.nome < nome)
-        return false;
     return peso < rhs.peso;
 }
 

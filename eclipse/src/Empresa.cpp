@@ -88,3 +88,7 @@ Camiao* Empresa::getTruck(int id){
 
 	return NULL;
 }
+
+vector<Produto*> Empresa::getProd(){
+	return produtos;
+}

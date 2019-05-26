@@ -8,16 +8,16 @@ class Produto
 private:
     string nome;
     long fatura;
-    double peso, preco;
+    int peso, preco;
     Local *destino;
 public:
     const string &getNome() const;
 
     long getFatura() const;
 
-    double getPeso() const;
+    int getPeso() const;
 
-    double getPreco() const;
+    int getPreco() const;
 
     Local *getDestino() const;
 
@@ -33,7 +33,7 @@ public:
 
     void getInfo();
 
-    Produto(string nome, long fatura, double peso, double preco, Local *destino);
+    Produto(string nome, long fatura, int peso, int preco, Local *destino);
 
 };
 
