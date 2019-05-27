@@ -46,13 +46,10 @@ bool Produto::operator>=(const Produto &rhs) const {
 }
 
 bool Produto::operator==(const Produto &rhs) const {
-    if(nome == rhs.getNome())
-    	if(fatura == rhs.getFatura())
-    		if(peso == rhs.getPeso())
-    			if(preco == rhs.getPreco())
-    				if(destino == rhs.getDestino())
-    					return true;
-	return false;
+    if(nome == rhs.getNome() && fatura == rhs.getFatura() && peso == rhs.getPeso() && preco == rhs.getPreco() && destino == rhs.getDestino())
+		return true;
+
+    return false;
 }
 
 void Produto::getInfo() {

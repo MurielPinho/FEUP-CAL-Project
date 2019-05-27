@@ -63,6 +63,9 @@ int main() {
     return 0;
 }
 
+/*
+ * Função da interface inicial
+ */
 void menuInicial(){
     cout << "--------- Smart Delivery ---------" << endl;
     cout << "           Menu Inicial" << endl << endl;
@@ -74,6 +77,9 @@ void menuInicial(){
     cout << "Opção: ";
 }
 
+/*
+ * Seletor de mapa
+ */
 void carregarMapa(){
 	int bg;
 	cout << "---------Bem Vindo ao Smart Delivery ---------" << endl;
@@ -104,6 +110,9 @@ void carregarMapa(){
     cout << endl;
 }
 
+/*
+ * Função de controle do estoque
+ */
 void estoque() {
     int opt;
     cout << "--------- Smart Delivery ---------" << endl;
@@ -199,6 +208,9 @@ void estoque() {
     cout << endl;
 }
 
+/*
+ * Função de seleção dos grafos
+ */
 void navegar(){
     int opt;
     cout << "------------------- Smart Delivery ------------------" << endl;
@@ -293,6 +305,9 @@ void navegar(){
     cout << endl;
 }
 
+/*
+ * função que trata inputs errados
+ */
 void verificaOpcao(int &opt, int min, int max) {
     while(opt < min || opt > max){
         cout << endl << "Digito inválido. Insira novamente:" << endl;
@@ -302,6 +317,9 @@ void verificaOpcao(int &opt, int min, int max) {
     cin.ignore(1000, '\n');
 }
 
+/*
+ * função que alimenta o grafo
+ */
 void createNetwork(Graph<Local> & cidade, string name){
 	if(name == "maia")
 		loadGraph("Mapas\\Maia\\T04_nodes_X_Y_Maia.txt", "Mapas\\Maia\\T04_edges_Maia.txt", "Mapas\\Maia\\T04_tags_Maia.txt", cidade);
@@ -309,6 +327,9 @@ void createNetwork(Graph<Local> & cidade, string name){
 		loadGraph("Mapas\\Porto\\T04_nodes_X_Y_Porto.txt", "Mapas\\Porto\\T04_edges_Porto.txt", "Mapas\\Porto\\T04_tags_Porto.txt", cidade);
 }
 
+/*
+ * seletor de garagem
+ */
 void definirGaragemPorto(){
 	int bg;
 	cout << "Definir garagem" << endl;
@@ -344,6 +365,9 @@ void definirGaragemPorto(){
     cout << endl;
 }
 
+/*
+ * seletor de deposito
+ */
 void definirDepoPorto(){
 	int bg;
 	cout << "Definir depósito" << endl;
@@ -379,6 +403,9 @@ void definirDepoPorto(){
     cout << endl;
 }
 
+/*
+ * seletor de garagem
+ */
 void definirGaragemMaia(){
 	int bg;
 	cout << "Definir garagem" << endl;
@@ -402,6 +429,9 @@ void definirGaragemMaia(){
     cout << endl;
 }
 
+/*
+ * seletor de deposito
+ */
 void definirDepoMaia(){
 	int bg;
 	cout << "Definir depósito" << endl;
@@ -425,6 +455,10 @@ void definirDepoMaia(){
     cout << endl;
 }
 
+/*
+ * Algoritmo do problema da mochila, que seleciona produtos para entrega.
+ * Modificado para considerar a existencia de apenas um produto
+ */
 void selectProd(Camiao* c){
 	//size = peso
 	//val = preco
