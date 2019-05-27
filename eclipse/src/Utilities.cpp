@@ -16,7 +16,7 @@ void displayGraph(Graph<Local> g){
 
 	GraphViewer *gv = new GraphViewer(maxX, maxY, false);
 
-		gv->setBackground("background.jpg");
+		gv->setBackground("Mapas\\GRID.png");
 		gv->createWindow(maxX, maxY);
 		gv->defineVertexColor("blue");
 		gv->defineEdgeColor("black");

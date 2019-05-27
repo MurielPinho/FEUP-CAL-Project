@@ -8,9 +8,6 @@ Camiao::Camiao(double capacidade)
     this->id = num++;
 }
 
-Camiao::~Camiao()
-{
-}
 
 int Camiao::getId(){
 	return id;
