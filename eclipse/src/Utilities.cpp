@@ -74,7 +74,6 @@ void displayGraph(vector<Local> g){
 		gv->rearrange();
 }
 
-
 void loadGraph(string nodes, string edges, string tags, Graph<Local> & city){
 	edgesPair.clear();
 	ifstream infile;
